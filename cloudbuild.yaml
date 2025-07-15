@@ -1,30 +1,35 @@
 steps:
-# Step 1: Build the Docker image
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/catch-fish-repo/catch-fish-app:$COMMIT_SHA', '.']
-  env:
-  - 'DOCKER_BUILDKIT=1' # Optional: Enable BuildKit for faster builds
+  # Step 1: Build the Docker image
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "europe-west1-docker.pkg.dev/$PROJECT_ID/catch-fish-repo/catch-fish-app:$COMMIT_SHA", "."]
+    env:
+      - "DOCKER_BUILDKIT=1" # Optional: Enable BuildKit for faster builds
 
-# Step 2: Push the Docker image to Artifact Registry
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'europe-west1-docker.pkg.dev/$PROJECT_ID/catch-fish-repo/catch-fish-app:$COMMIT_SHA']
+  # Step 2: Push the Docker image to Artifact Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "europe-west1-docker.pkg.dev/$PROJECT_ID/catch-fish-repo/catch-fish-app:$COMMIT_SHA"]
 
-# Step 3: Deploy the image to Cloud Run
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'gcloud'
-  args:
-  - 'run'
-  - 'deploy'
-  - 'catch-fish-app-service' # Name of your Cloud Run service
-  - '--image'
-  - 'europe-west1-docker.pkg.dev/$PROJECT_ID/catch-fish-repo/catch-fish-app:$COMMIT_SHA'
-  - '--region'
-  - 'europe-west1' # Your desired Cloud Run region (choose one close to your users)
-  - '--allow-unauthenticated' # Only if you want your app publicly accessible
-  - '--platform=managed' # Ensure you're using the managed platform
-  - '--min-instances=0' # Crucial for a cheap setup (scales to zero when idle)
-  - '--max-instances=1' # Start with a low max for testing/low traffic
-  - '--cpu=1' # Smallest CPU allocation (0.08, 0.16, 0.25, 0.5, 1, 2, 4) - 1 is often good for Next.js
-  - '--memory=512Mi' # Minimal memory (128Mi, 256Mi, 512Mi, 1Gi, 2Gi, etc.) - 512Mi is a common starting point
-  # Add environment variables if needed for your Next.js app
-  # - '--set-env-vars=NEXT_PUBLIC_API_URL=https://api.example.com,ANOTHER_VAR=value'
+  # Step 3: Deploy the image to Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "gcloud"
+    args:
+      - "run"
+      - "deploy"
+      - "catch-fish-app-service" # Name of your Cloud Run service
+      - "--image"
+      - "europe-west1-docker.pkg.dev/$PROJECT_ID/catch-fish-repo/catch-fish-app:$COMMIT_SHA"
+      - "--region"
+      - "europe-west1" # Your desired Cloud Run region (choose one close to your users)
+      - "--allow-unauthenticated" # Only if you want your app publicly accessible
+      - "--platform=managed" # Ensure you're using the managed platform
+      - "--min-instances=0" # Crucial for a cheap setup (scales to zero when idle)
+      - "--max-instances=1" # Start with a low max for testing/low traffic
+      - "--cpu=1" # Smallest CPU allocation (0.08, 0.16, 0.25, 0.5, 1, 2, 4) - 1 is often good for Next.js
+      - "--memory=512Mi" # Minimal memory (128Mi, 256Mi, 512Mi, 1Gi, 2Gi, etc.) - 512Mi is a common starting point
+    # Add environment variables if needed for your Next.js app
+    # - '--set-env-vars=NEXT_PUBLIC_API_URL=https://api.example.com,ANOTHER_VAR=value'
+
+    options:
+    # Use CLOUD_LOGGING_ONLY if you don't need logs in GCS bucket
+    logging: CLOUD_LOGGING_ONLY
+    # Or logging: NONE (not recommended)
