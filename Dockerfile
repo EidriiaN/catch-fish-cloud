@@ -34,6 +34,7 @@ USER nextjs
 # Copy the built application from the build stage
 COPY --from=build /app/.next/standalone ./
 COPY --from=build /app/public ./public
+COPY --from=build /app/.next/static ./.next/static
 # If you have custom server.js, copy it here
 # COPY --from=build /app/server.js ./server.js
 
