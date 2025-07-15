@@ -1,17 +1,14 @@
 # Use a Node.js base image
 FROM node:20-alpine AS base
 
-# Install pnpm (or npm/yarn if you prefer)
-RUN npm install -g pnpm
-
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and pnpm-lock.yaml to leverage Docker caching
-COPY package.json pnpm-lock.yaml ./
+# Copy package.json and package-lock.json to leverage Docker caching
+COPY package.json package-lock.json* ./
 
 # Install dependencies
-RUN pnpm install --frozen-lockfile
+RUN npm ci
 
 # Build stage
 FROM base AS build
@@ -22,7 +19,7 @@ COPY . .
 # Build the Next.js application
 # `output: "standalone"` is crucial for Cloud Run
 ENV NEXT_OUTPUT="standalone"
-RUN pnpm build
+RUN npm run build
 
 # Production stage
 FROM node:20-alpine AS runner
