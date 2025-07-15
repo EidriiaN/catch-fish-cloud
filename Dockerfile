@@ -17,8 +17,7 @@ FROM base AS build
 COPY . .
 
 # Build the Next.js application
-# `output: "standalone"` is crucial for Cloud Run
-ENV NEXT_OUTPUT="standalone"
+ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
 # Production stage
