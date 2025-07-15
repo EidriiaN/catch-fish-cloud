@@ -30,6 +30,6 @@ steps:
     # - '--set-env-vars=NEXT_PUBLIC_API_URL=https://api.example.com,ANOTHER_VAR=value'
 
     options:
-    # Use CLOUD_LOGGING_ONLY if you don't need logs in GCS bucket
-    logging: CLOUD_LOGGING_ONLY
+      # Use CLOUD_LOGGING_ONLY if you don't need logs in GCS bucket
+      logging: CLOUD_LOGGING_ONLY
     # Or logging: NONE (not recommended)
