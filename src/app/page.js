@@ -34,7 +34,7 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose FishingLakes?</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Why Choose FishingLakes?</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-green-50 p-6 rounded-lg text-center">
@@ -47,8 +47,8 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Exclusive Locations</h3>
-              <p className="text-gray-600">Access private lakes and ponds not available to the general public.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Exclusive Locations</h3>
+              <p className="text-gray-700">Access private lakes and ponds not available to the general public.</p>
             </div>
 
             <div className="bg-green-50 p-6 rounded-lg text-center">
@@ -57,8 +57,8 @@ export default function Home() {
                   <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Premium Experience</h3>
-              <p className="text-gray-600">Enjoy well-stocked waters, better catch rates, and less crowded fishing spots.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Premium Experience</h3>
+              <p className="text-gray-700">Enjoy well-stocked waters, better catch rates, and less crowded fishing spots.</p>
             </div>
 
             <div className="bg-green-50 p-6 rounded-lg text-center">
@@ -71,8 +71,8 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Easy Reservations</h3>
-              <p className="text-gray-600">Book your fishing time in advance to ensure availability.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Easy Reservations</h3>
+              <p className="text-gray-700">Book your fishing time in advance to ensure availability.</p>
             </div>
           </div>
         </div>
@@ -81,31 +81,31 @@ export default function Home() {
       {/* How It Works */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">How It Works</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center text-xl font-bold mx-auto mb-4">1</div>
-              <h3 className="text-xl font-semibold mb-2">Create Account</h3>
-              <p className="text-gray-600">Sign up and create your profile in minutes.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Create Account</h3>
+              <p className="text-gray-700">Sign up and create your profile in minutes.</p>
             </div>
 
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center text-xl font-bold mx-auto mb-4">2</div>
-              <h3 className="text-xl font-semibold mb-2">Discover Lakes</h3>
-              <p className="text-gray-600">Browse through our selection of premium fishing spots.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Discover Lakes</h3>
+              <p className="text-gray-700">Browse through our selection of premium fishing spots.</p>
             </div>
 
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center text-xl font-bold mx-auto mb-4">3</div>
-              <h3 className="text-xl font-semibold mb-2">Make Reservation</h3>
-              <p className="text-gray-600">Book your preferred date and pond.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Make Reservation</h3>
+              <p className="text-gray-700">Book your preferred date and pond.</p>
             </div>
 
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center text-xl font-bold mx-auto mb-4">4</div>
-              <h3 className="text-xl font-semibold mb-2">Go Fishing!</h3>
-              <p className="text-gray-600">Enjoy your exclusive fishing experience.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Go Fishing!</h3>
+              <p className="text-gray-700">Enjoy your exclusive fishing experience.</p>
             </div>
           </div>
         </div>

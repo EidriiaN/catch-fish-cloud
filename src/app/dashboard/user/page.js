@@ -56,7 +56,7 @@ export default function UserDashboard() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <p className="text-gray-600">Loading your dashboard...</p>
+          <p className="text-gray-700">Loading your dashboard...</p>
         </div>
       </div>
     );
@@ -64,13 +64,13 @@ export default function UserDashboard() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Welcome, {currentUser?.name}</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-6">Welcome, {currentUser?.name}</h1>
 
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-xl font-semibold mb-4">Your Upcoming Reservations</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Your Upcoming Reservations</h2>
 
         {reservations.length === 0 ? (
-          <div className="text-gray-600">
+          <div className="text-gray-700">
             <p>You don&apos;t have any reservations yet.</p>
             <Link href="/lakes" className="text-green-600 hover:underline mt-2 inline-block">
               Find a lake to book
@@ -81,16 +81,16 @@ export default function UserDashboard() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lake</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pond</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Lake</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Pond</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Price</th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {reservations.map((reservation) => (
+                {reservations.slice(0, 3).map((reservation) => (
                   <tr key={reservation.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <Link href={`/lakes/${reservation.lakeId}`} className="text-green-600 hover:underline">
@@ -119,19 +119,40 @@ export default function UserDashboard() {
                 ))}
               </tbody>
             </table>
+
+            {reservations.length > 3 && (
+              <div className="mt-4 text-right">
+                <Link href="/dashboard/user/reservations" className="text-green-600 hover:text-green-700">
+                  View all {reservations.length} reservations →
+                </Link>
+              </div>
+            )}
           </div>
         )}
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-semibold mb-4">Write a Review</h2>
-        <p className="text-gray-600 mb-4">Have you visited a lake recently? Share your experience with other fishermen!</p>
-        <Link
-          href="/dashboard/user/reviews"
-          className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200 inline-block"
-        >
-          Write a Review
-        </Link>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h2 className="text-xl font-semibold mb-4">Manage Reservations</h2>
+          <p className="text-gray-700 mb-4">View, modify or cancel your current reservations.</p>
+          <Link
+            href="/dashboard/user/reservations"
+            className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200 inline-block"
+          >
+            View All Reservations
+          </Link>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h2 className="text-xl font-semibold mb-4">Write a Review</h2>
+          <p className="text-gray-700 mb-4">Have you visited a lake recently? Share your experience with other fishermen!</p>
+          <Link
+            href="/dashboard/user/reservations"
+            className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200 inline-block"
+          >
+            Write a Review
+          </Link>
+        </div>
       </div>
     </div>
   );

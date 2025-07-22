@@ -132,7 +132,7 @@ export default function Register() {
       </form>
 
       <div className="mt-6 text-center">
-        <p className="text-gray-600">
+        <p className="text-gray-700">
           Already have an account?{" "}
           <Link href="/auth/login" className="text-green-600 hover:underline">
             Sign in here

@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <h3 className="text-lg font-semibold mb-4">FishingLakes</h3>
-            <p className="text-gray-300 mb-4">Connecting anglers with the best private fishing locations.</p>
+            <p className="text-gray-200 mb-4">Connecting anglers with the best private fishing locations.</p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white">
                 <span className="sr-only">Facebook</span>
@@ -46,27 +46,27 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/lakes" className="text-gray-300 hover:text-white">
+                <Link href="/lakes" className="text-gray-200 hover:text-white">
                   Find Lakes
                 </Link>
               </li>
               <li>
-                <Link href="/auth/login" className="text-gray-300 hover:text-white">
+                <Link href="/auth/login" className="text-gray-200 hover:text-white">
                   Login
                 </Link>
               </li>
               <li>
-                <Link href="/auth/register" className="text-gray-300 hover:text-white">
+                <Link href="/auth/register" className="text-gray-200 hover:text-white">
                   Register
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-gray-300 hover:text-white">
+                <Link href="/about" className="text-gray-200 hover:text-white">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-300 hover:text-white">
+                <Link href="/contact" className="text-gray-200 hover:text-white">
                   Contact
                 </Link>
               </li>
@@ -76,7 +76,7 @@ export default function Footer() {
           {/* Contact Info */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-            <address className="not-italic text-gray-300 space-y-2">
+            <address className="not-italic text-gray-200 space-y-2">
               <p>1234 Fishing Lane</p>
               <p>Lakeville, CA 90210</p>
               <p>
@@ -96,7 +96,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-8 border-t border-gray-700">
-          <p className="text-gray-400 text-center">&copy; {currentYear} FishingLakes. All rights reserved.</p>
+          <p className="text-gray-200 text-center">&copy; {currentYear} FishingLakes. All rights reserved.</p>
         </div>
       </div>
     </footer>

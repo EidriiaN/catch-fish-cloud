@@ -62,7 +62,7 @@ export default function AdminDashboard() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <p className="text-gray-600">Loading your dashboard...</p>
+          <p className="text-gray-700">Loading your dashboard...</p>
         </div>
       </div>
     );
@@ -85,19 +85,19 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-lg font-semibold mb-2">Your Lakes</h3>
           <p className="text-3xl font-bold text-green-600">{adminLakes.length}</p>
-          <p className="text-gray-600 mt-2">Total lakes you manage</p>
+          <p className="text-gray-700 mt-2">Total lakes you manage</p>
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-lg font-semibold mb-2">Pending Reservations</h3>
           <p className="text-3xl font-bold text-yellow-600">{pendingReservations.length}</p>
-          <p className="text-gray-600 mt-2">Reservations awaiting approval</p>
+          <p className="text-gray-700 mt-2">Reservations awaiting approval</p>
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-lg font-semibold mb-2">Total Ponds</h3>
           <p className="text-3xl font-bold text-blue-600">{adminLakes.reduce((total, lake) => total + lake.ponds.length, 0)}</p>
-          <p className="text-gray-600 mt-2">Across all your lakes</p>
+          <p className="text-gray-700 mt-2">Across all your lakes</p>
         </div>
       </div>
 
@@ -106,17 +106,17 @@ export default function AdminDashboard() {
         <h2 className="text-xl font-semibold mb-4">Pending Reservations</h2>
 
         {pendingReservations.length === 0 ? (
-          <p className="text-gray-600">No pending reservations at this time.</p>
+          <p className="text-gray-700">No pending reservations at this time.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lake</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pond</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Lake</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Pond</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Price</th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -144,7 +144,7 @@ export default function AdminDashboard() {
 
         {adminLakes.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-gray-600 mb-4">You haven&apos;t added any lakes yet.</p>
+            <p className="text-gray-700 mb-4">You haven&apos;t added any lakes yet.</p>
             <Link
               href="/dashboard/admin/add-lake"
               className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200 inline-block"
@@ -156,12 +156,12 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {adminLakes.map((lake) => (
               <div key={lake.id} className="border rounded-lg overflow-hidden">
-                <div className="h-32 bg-gray-200 flex items-center justify-center text-gray-500">
+                <div className="h-32 bg-gray-200 flex items-center justify-center text-gray-700">
                   <span>Lake Image</span>
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-lg mb-1">{lake.name}</h3>
-                  <p className="text-gray-600 text-sm mb-2">
+                  <p className="text-gray-700 text-sm mb-2">
                     {lake.ponds.length} pond{lake.ponds.length !== 1 ? "s" : ""}
                   </p>
                   <p className="text-gray-700 mb-4">{lake.description.substring(0, 80)}...</p>

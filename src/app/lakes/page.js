@@ -54,12 +54,12 @@ export default function Lakes() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">Find Your Perfect Fishing Spot</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">Find Your Perfect Fishing Spot</h1>
 
       {/* Search and Filters */}
       <div className="bg-white rounded-lg shadow-md p-4 mb-8">
         <div className="mb-4">
-          <label htmlFor="search" className="block text-gray-700 mb-2">
+          <label htmlFor="search" className="block text-gray-800 font-medium mb-2">
             Search Lakes
           </label>
           <input
@@ -74,7 +74,7 @@ export default function Lakes() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="priceFilter" className="block text-gray-700 mb-2">
+            <label htmlFor="priceFilter" className="block text-gray-800 font-medium mb-2">
               Price Range
             </label>
             <select
@@ -91,7 +91,7 @@ export default function Lakes() {
           </div>
 
           <div>
-            <label htmlFor="ratingFilter" className="block text-gray-700 mb-2">
+            <label htmlFor="ratingFilter" className="block text-gray-800 font-medium mb-2">
               Minimum Rating
             </label>
             <select
@@ -126,21 +126,21 @@ export default function Lakes() {
           ))
         ) : filteredLakes.length === 0 ? (
           <div className="col-span-full text-center py-8">
-            <p className="text-lg text-gray-600">No lakes match your search criteria. Try adjusting your filters.</p>
+            <p className="text-lg text-gray-700">No lakes match your search criteria. Try adjusting your filters.</p>
           </div>
         ) : (
           filteredLakes.map((lake) => (
             <div key={lake.id} className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
               <div className="h-48 bg-gray-200 relative">
                 {/* This would be a real image in production */}
-                <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+                <div className="absolute inset-0 flex items-center justify-center text-gray-700">
                   <span>Lake Image Placeholder</span>
                 </div>
               </div>
 
               <div className="p-4 flex-grow flex flex-col">
-                <h2 className="text-xl font-semibold mb-2">{lake.name}</h2>
-                <p className="text-gray-600 mb-2 text-sm">{lake.location.address}</p>
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">{lake.name}</h2>
+                <p className="text-gray-700 mb-2 text-sm">{lake.location.address}</p>
 
                 <div className="flex items-center mb-2">
                   <div className="flex text-yellow-400">
@@ -170,7 +170,7 @@ export default function Lakes() {
                       </span>
                     ))}
                   </div>
-                  <span className="ml-1 text-gray-600">
+                  <span className="ml-1 text-gray-700">
                     {lake.rating} ({lake.reviews.length} reviews)
                   </span>
                 </div>

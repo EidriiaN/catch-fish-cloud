@@ -79,14 +79,14 @@ export default function Login() {
       </form>
 
       <div className="mt-6 text-center">
-        <p className="text-gray-600">
+        <p className="text-gray-700">
           Don&apos;t have an account?{" "}
           <Link href="/auth/register" className="text-green-600 hover:underline">
             Register here
           </Link>
         </p>
 
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="mt-2 text-sm text-gray-700">
           For demo purposes, you can use:
           <br />
           User: john@example.com
