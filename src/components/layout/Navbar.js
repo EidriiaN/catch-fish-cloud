@@ -3,10 +3,25 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/lib/auth/auth-context";
+import {
+  Box,
+  Flex,
+  Text,
+  IconButton,
+  Button,
+  Stack,
+  Collapse,
+  Icon,
+  Link as ChakraLink,
+  useColorModeValue,
+  useDisclosure,
+  Container,
+} from "@chakra-ui/react";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
 export default function Navbar() {
   const { currentUser, logout, isAdmin } = useAuth();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isOpen, onToggle } = useDisclosure();
   const [scrolled, setScrolled] = useState(false);
 
   // Handle scroll effect
@@ -23,138 +38,190 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await logout();
-      setIsMenuOpen(false);
     } catch (error) {
       console.error("Logout failed", error);
     }
   };
 
+  const bgColor = useColorModeValue("white", "gray.900");
+
   return (
-    <nav className={`fixed w-full z-30 transition-all duration-300 ${scrolled ? "bg-white dark:bg-gray-900 shadow-md" : "bg-transparent"}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link href="/">
-              <div className="flex items-center cursor-pointer">
-                <span className="text-xl font-bold text-green-600">FishingLakes</span>
-              </div>
-            </Link>
+    <Box
+      position="fixed"
+      top="0"
+      width="full"
+      zIndex={30}
+      transition="all 0.3s"
+      bg={scrolled ? bgColor : "transparent"}
+      boxShadow={scrolled ? "sm" : "none"}
+    >
+      <Container maxW="7xl">
+        <Flex
+          color={useColorModeValue("gray.600", "white")}
+          minH={"60px"}
+          py={{ base: 2 }}
+          px={{ base: 4 }}
+          align={"center"}
+          justify={"space-between"}
+        >
+          <Flex flex={{ base: 1 }} align="center">
+            <Text as={Link} href="/" textAlign="left" fontFamily={"heading"} color="brand.500" fontWeight="bold" fontSize="xl" cursor="pointer">
+              FishingLakes
+            </Text>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:ml-8 md:flex md:space-x-8">
-              <Link href="/lakes" className="text-gray-700 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-md font-medium">
-                Find Lakes
-              </Link>
-              <Link href="/about" className="text-gray-700 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-md font-medium">
-                About
-              </Link>
-              <Link href="/contact" className="text-gray-700 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-md font-medium">
-                Contact
-              </Link>
-            </div>
-          </div>
+            <Flex display={{ base: "none", md: "flex" }} ml={10}>
+              <DesktopNav />
+            </Flex>
+          </Flex>
 
-          {/* Auth Navigation */}
-          <div className="hidden md:flex items-center">
+          <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6} display={{ base: "none", md: "flex" }}>
             {currentUser ? (
-              <div className="flex items-center">
-                <Link
+              <>
+                <Button
+                  as={Link}
                   href={isAdmin ? "/dashboard/admin" : "/dashboard/user"}
-                  className="text-gray-700 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-md font-medium"
+                  variant="link"
+                  color="gray.600"
+                  _hover={{ color: "brand.500" }}
                 >
                   Dashboard
-                </Link>
-                <button onClick={handleLogout} className="ml-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">
+                </Button>
+                <Button onClick={handleLogout} colorScheme="green" variant="solid">
                   Logout
-                </button>
-              </div>
+                </Button>
+              </>
             ) : (
-              <div className="flex items-center space-x-4">
-                <Link href="/auth/login" className="text-gray-700 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-md font-medium">
-                  Login
-                </Link>
-                <Link href="/auth/register" className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">
-                  Register
-                </Link>
-              </div>
+              <>
+                <Button as={Link} href="/auth/login" variant="link" color="gray.600" _hover={{ color: "brand.500" }}>
+                  Sign In
+                </Button>
+                <Button as={Link} href="/auth/register" colorScheme="green" variant="solid">
+                  Sign Up
+                </Button>
+              </>
             )}
-          </div>
+          </Stack>
 
-          {/* Mobile menu button */}
-          <div className="flex items-center md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-green-600 focus:outline-none"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              {/* Heroicon name: menu */}
-              <svg
-                className={`${isMenuOpen ? "hidden" : "block"} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-              {/* Heroicon name: x */}
-              <svg
-                className={`${isMenuOpen ? "block" : "hidden"} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
+          <Flex flex={{ base: 1, md: "auto" }} ml={{ base: -2 }} display={{ base: "flex", md: "none" }} justify="flex-end">
+            <IconButton
+              onClick={onToggle}
+              icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
+              variant={"ghost"}
+              aria-label={"Toggle Navigation"}
+            />
+          </Flex>
+        </Flex>
 
-      {/* Mobile menu, show/hide based on menu state */}
-      <div className={`${isMenuOpen ? "block" : "hidden"} md:hidden bg-white dark:bg-gray-900 shadow-md`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <Link href="/lakes" className="block text-gray-700 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-md font-medium">
-            Find Lakes
-          </Link>
-          <Link href="/about" className="block text-gray-700 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-md font-medium">
-            About
-          </Link>
-          <Link href="/contact" className="block text-gray-700 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-md font-medium">
-            Contact
-          </Link>
-
-          {currentUser ? (
-            <>
-              <Link
-                href={isAdmin ? "/dashboard/admin" : "/dashboard/user"}
-                className="block text-gray-700 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-md font-medium"
-              >
-                Dashboard
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="w-full text-left text-gray-700 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-md font-medium"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link href="/auth/login" className="block text-gray-700 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-md font-medium">
-                Login
-              </Link>
-              <Link href="/auth/register" className="block text-gray-700 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-md font-medium">
-                Register
-              </Link>
-            </>
-          )}
-        </div>
-      </div>
-    </nav>
+        <Collapse in={isOpen} animateOpacity>
+          <MobileNav currentUser={currentUser} isAdmin={isAdmin} handleLogout={handleLogout} />
+        </Collapse>
+      </Container>
+    </Box>
   );
 }
+
+const DesktopNav = () => {
+  const linkColor = "gray.600";
+  const linkHoverColor = "brand.500";
+
+  return (
+    <Stack direction={"row"} spacing={8}>
+      {NAV_ITEMS.map((navItem) => (
+        <Box key={navItem.label}>
+          <ChakraLink
+            as={Link}
+            href={navItem.href ?? "#"}
+            p={2}
+            fontSize={"md"}
+            fontWeight={500}
+            color={linkColor}
+            _hover={{
+              textDecoration: "none",
+              color: linkHoverColor,
+            }}
+          >
+            {navItem.label}
+          </ChakraLink>
+        </Box>
+      ))}
+    </Stack>
+  );
+};
+
+const MobileNav = ({ currentUser, isAdmin, handleLogout }) => {
+  return (
+    <Stack bg={useColorModeValue("white", "gray.800")} p={4} display={{ md: "none" }}>
+      {NAV_ITEMS.map((navItem) => (
+        <MobileNavItem key={navItem.label} {...navItem} />
+      ))}
+
+      {currentUser ? (
+        <>
+          <Box
+            py={2}
+            as={Link}
+            href={isAdmin ? "/dashboard/admin" : "/dashboard/user"}
+            display="block"
+            fontSize="md"
+            fontWeight={500}
+            color="gray.600"
+            _hover={{ color: "brand.500" }}
+          >
+            Dashboard
+          </Box>
+          <Box
+            py={2}
+            as="button"
+            display="block"
+            onClick={handleLogout}
+            fontSize="md"
+            fontWeight={500}
+            color="gray.600"
+            _hover={{ color: "brand.500" }}
+            cursor="pointer"
+            textAlign="left"
+            bg="transparent"
+            border="none"
+            width="100%"
+          >
+            Logout
+          </Box>
+        </>
+      ) : (
+        <>
+          <Box py={2} as={Link} href="/auth/login" display="block" fontSize="md" fontWeight={500} color="gray.600" _hover={{ color: "brand.500" }}>
+            Sign In
+          </Box>
+          <Box py={2} as={Link} href="/auth/register" display="block" fontSize="md" fontWeight={500} color="gray.600" _hover={{ color: "brand.500" }}>
+            Sign Up
+          </Box>
+        </>
+      )}
+    </Stack>
+  );
+};
+
+const MobileNavItem = ({ label, href }) => {
+  return (
+    <Stack spacing={4}>
+      <Box py={2} as={Link} href={href ?? "#"} display="block" fontSize="md" fontWeight={500} color="gray.600" _hover={{ color: "brand.500" }}>
+        {label}
+      </Box>
+    </Stack>
+  );
+};
+
+const NAV_ITEMS = [
+  {
+    label: "Find Lakes",
+    href: "/lakes",
+  },
+  {
+    label: "About",
+    href: "/about",
+  },
+  {
+    label: "Contact",
+    href: "/contact",
+  },
+];

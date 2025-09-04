@@ -4,6 +4,24 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/lib/auth/auth-context";
+import {
+  Box,
+  Button,
+  Container,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Stack,
+  Text,
+  Alert,
+  AlertIcon,
+  VStack,
+  RadioGroup,
+  Radio,
+  Link as ChakraLink,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -45,100 +63,78 @@ export default function Register() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 bg-white p-8 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold text-center mb-6">Create Your Account</h1>
+    <Container maxW="md" py={12}>
+      <Box bg={useColorModeValue("white", "gray.700")} p={8} rounded="lg" boxShadow="md">
+        <Stack spacing={6}>
+          <Heading as="h1" size="lg" textAlign="center">
+            Create Your Account
+          </Heading>
 
-      {error && <div className="bg-red-50 text-red-600 p-3 rounded mb-4">{error}</div>}
+          {error && (
+            <Alert status="error" rounded="md">
+              <AlertIcon />
+              {error}
+            </Alert>
+          )}
 
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 font-medium mb-1">
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
-            required
-          />
-        </div>
+          <form onSubmit={handleSubmit}>
+            <VStack spacing={4}>
+              <FormControl id="name" isRequired>
+                <FormLabel>Full Name</FormLabel>
+                <Input type="text" value={name} onChange={(e) => setName(e.target.value)} focusBorderColor="brand.500" />
+              </FormControl>
 
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 font-medium mb-1">
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
-            required
-          />
-        </div>
+              <FormControl id="email" isRequired>
+                <FormLabel>Email Address</FormLabel>
+                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} focusBorderColor="brand.500" />
+              </FormControl>
 
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-gray-700 font-medium mb-1">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
-            required
-            minLength={6}
-          />
-        </div>
+              <FormControl id="password" isRequired>
+                <FormLabel>Password</FormLabel>
+                <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} focusBorderColor="brand.500" minLength={6} />
+              </FormControl>
 
-        <div className="mb-4">
-          <label htmlFor="confirmPassword" className="block text-gray-700 font-medium mb-1">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
-            required
-          />
-        </div>
+              <FormControl id="confirmPassword" isRequired>
+                <FormLabel>Confirm Password</FormLabel>
+                <Input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  focusBorderColor="brand.500"
+                  minLength={6}
+                />
+              </FormControl>
 
-        <div className="mb-6">
-          <p className="block text-gray-700 font-medium mb-1">Account Type</p>
-          <div className="flex space-x-4">
-            <label className="flex items-center">
-              <input type="radio" value="user" checked={userType === "user"} onChange={() => setUserType("user")} className="mr-2" />
-              Fisherman
-            </label>
-            <label className="flex items-center">
-              <input type="radio" value="admin" checked={userType === "admin"} onChange={() => setUserType("admin")} className="mr-2" />
-              Lake Administrator
-            </label>
-          </div>
-        </div>
+              <FormControl id="userType">
+                <FormLabel>Account Type</FormLabel>
+                <RadioGroup value={userType} onChange={setUserType}>
+                  <Stack direction="row">
+                    <Radio value="user" colorScheme="green">
+                      User
+                    </Radio>
+                    <Radio value="lakeOwner" colorScheme="green">
+                      Lake Owner
+                    </Radio>
+                  </Stack>
+                </RadioGroup>
+              </FormControl>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded font-medium transition duration-200 disabled:bg-green-400"
-        >
-          {isLoading ? "Creating Account..." : "Create Account"}
-        </button>
-      </form>
+              <Button type="submit" colorScheme="green" size="md" width="full" isLoading={isLoading} loadingText="Creating Account..." mt={4}>
+                Create Account
+              </Button>
+            </VStack>
+          </form>
 
-      <div className="mt-6 text-center">
-        <p className="text-gray-700">
-          Already have an account?{" "}
-          <Link href="/auth/login" className="text-green-600 hover:underline">
-            Sign in here
-          </Link>
-        </p>
-      </div>
-    </div>
+          <Box textAlign="center">
+            <Text color="gray.600">
+              Already have an account?{" "}
+              <ChakraLink as={Link} href="/auth/login" color="brand.500">
+                Sign in here
+              </ChakraLink>
+            </Text>
+          </Box>
+        </Stack>
+      </Box>
+    </Container>
   );
 }

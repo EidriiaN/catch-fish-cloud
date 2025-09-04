@@ -3,6 +3,7 @@ import "./globals.css";
 import { AuthProvider } from "@/lib/auth/auth-context";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { Providers } from "@/lib/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,13 +24,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <AuthProvider>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow pt-16">{children}</main>
-            <Footer />
-          </div>
-        </AuthProvider>
+        <Providers>
+          <AuthProvider>
+            <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+              <Navbar />
+              <main style={{ flexGrow: 1, paddingTop: "4rem" }}>{children}</main>
+              <Footer />
+            </div>
+          </AuthProvider>
+        </Providers>
       </body>
     </html>
   );

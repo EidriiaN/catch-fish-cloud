@@ -5,16 +5,58 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth/auth-context";
 import { formatCurrency, formatDate, formatTime } from "@/lib/utils/format";
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Heading,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalCloseButton,
+  Radio,
+  RadioGroup,
+  Select,
+  Stack,
+  Step,
+  StepDescription,
+  StepIcon,
+  StepIndicator,
+  StepNumber,
+  StepSeparator,
+  StepStatus,
+  StepTitle,
+  Stepper,
+  Text,
+  useToast,
+  VStack,
+  HStack,
+  Checkbox,
+  useSteps,
+  Input,
+} from "@chakra-ui/react";
 
 export default function ReservationForm({ lake, onClose }) {
   const router = useRouter();
   const { currentUser, isAuthenticated } = useAuth();
-  const [step, setStep] = useState(1);
+  const toast = useToast();
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [selectedPonds, setSelectedPonds] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(false);
+
+  const { activeStep, setActiveStep } = useSteps({
+    index: 0,
+    count: 3,
+  });
 
   const {
     register,
@@ -98,368 +140,270 @@ export default function ReservationForm({ lake, onClose }) {
         totalPrice: totalPrice,
         status: "pending",
         paymentInfo: {
-          cardNumber: data.cardNumber.replace(/\s/g, "").slice(-4),
-          nameOnCard: data.nameOnCard,
+          cardNumber: data.cardNumber,
+          expiryDate: data.expiryDate,
+          cardholderName: data.cardholderName,
         },
         createdAt: new Date(),
       };
 
-      // Simulate API call delay
+      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      // Here you would normally save the reservation to your database
-      console.log("Reservation created:", reservation);
+      // Show success message
+      toast({
+        title: "Reservation Created",
+        description: "Your fishing trip has been booked successfully!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
 
-      // Redirect to success page or user dashboard
-      router.push("/dashboard/user");
+      // Close the form and redirect
+      onClose();
+      router.push("/dashboard/user/reservations");
     } catch (error) {
-      console.error("Error creating reservation:", error);
+      toast({
+        title: "Error",
+        description: "There was an error creating your reservation. Please try again.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     } finally {
       setLoading(false);
     }
   };
 
+  const steps = [
+    { title: "Step 1", description: "Select Date & Time" },
+    { title: "Step 2", description: "Choose Pond" },
+    { title: "Step 3", description: "Payment Details" },
+  ];
+
   return (
-    <div className="bg-white rounded-lg max-w-4xl w-full mx-auto">
-      {/* Header */}
-      <div className="flex justify-between items-center p-6 border-b">
-        <h2 className="text-xl font-semibold text-gray-900">Reserve a Fishing Experience</h2>
-        <button onClick={onClose} className="text-gray-700 hover:text-gray-900">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
+    <Modal isOpen={true} onClose={onClose} size="xl">
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Book Your Fishing Trip</ModalHeader>
+        <ModalCloseButton />
 
-      {/* Steps Indicator */}
-      <div className="px-6 pt-6">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex flex-col items-center">
-            <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                step >= 1 ? "bg-green-600 text-white" : "bg-gray-200 text-gray-700"
-              }`}
-            >
-              1
-            </div>
-            <span className="text-sm mt-2">Select Date</span>
-          </div>
+        <ModalBody>
+          <Stepper index={activeStep} mb={8}>
+            {steps.map((step, index) => (
+              <Step key={index}>
+                <StepIndicator>
+                  <StepStatus complete={<StepIcon />} incomplete={<StepNumber />} active={<StepNumber />} />
+                </StepIndicator>
+                <Box flexShrink="0">
+                  <StepTitle>{step.title}</StepTitle>
+                  <StepDescription>{step.description}</StepDescription>
+                </Box>
+                <StepSeparator />
+              </Step>
+            ))}
+          </Stepper>
 
-          <div className="flex-1 h-1 bg-gray-200 mx-4">
-            <div className={`h-full ${step >= 2 ? "bg-green-600" : "bg-gray-200"}`} style={{ width: step >= 2 ? "100%" : "0%" }}></div>
-          </div>
+          {activeStep === 0 && (
+            <Box>
+              <Heading as="h3" size="md" mb={4}>
+                Select Date & Time
+              </Heading>
 
-          <div className="flex flex-col items-center">
-            <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                step >= 2 ? "bg-green-600 text-white" : "bg-gray-200 text-gray-700"
-              }`}
-            >
-              2
-            </div>
-            <span className="text-sm mt-2">Select Ponds</span>
-          </div>
+              <FormControl mb={6}>
+                <FormLabel>Select Date</FormLabel>
+                <Select
+                  placeholder="Choose a date"
+                  onChange={(e) => {
+                    const date = new Date(e.target.value);
+                    setSelectedDate(date);
+                  }}
+                >
+                  {availableDates.map((date, index) => (
+                    <option key={index} value={date.toISOString()}>
+                      {formatDate(date)}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
 
-          <div className="flex-1 h-1 bg-gray-200 mx-4">
-            <div className={`h-full ${step >= 3 ? "bg-green-600" : "bg-gray-200"}`} style={{ width: step >= 3 ? "100%" : "0%" }}></div>
-          </div>
+              <FormControl>
+                <FormLabel>Select Time Slot</FormLabel>
+                <RadioGroup
+                  onChange={(value) => {
+                    const slot = timeSlots.find((slot) => slot.id === value);
+                    setSelectedTimeSlot(slot);
+                  }}
+                >
+                  <Stack>
+                    {timeSlots.map((slot) => (
+                      <Radio key={slot.id} value={slot.id} colorScheme="green">
+                        {slot.label}
+                      </Radio>
+                    ))}
+                  </Stack>
+                </RadioGroup>
+              </FormControl>
+            </Box>
+          )}
 
-          <div className="flex flex-col items-center">
-            <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                step >= 3 ? "bg-green-600 text-white" : "bg-gray-200 text-gray-700"
-              }`}
-            >
-              3
-            </div>
-            <span className="text-sm mt-2">Payment</span>
-          </div>
-        </div>
-      </div>
+          {activeStep === 1 && (
+            <Box>
+              <Heading as="h3" size="md" mb={4}>
+                Select Ponds
+              </Heading>
 
-      {/* Form Content */}
-      <form onSubmit={handleSubmit(onSubmit)} className="p-6">
-        {/* Step 1: Select Date and Time Slot */}
-        {step === 1 && (
-          <div>
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Select Date and Time Slot</h3>
+              <Text mb={4}>Select one or more ponds at {lake.name}:</Text>
 
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Select a Date</label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                {availableDates.slice(0, 8).map((date) => (
-                  <button
-                    key={date.toISOString()}
-                    type="button"
-                    onClick={() => setSelectedDate(date)}
-                    className={`p-3 border rounded-md text-center ${
-                      selectedDate && selectedDate.toDateString() === date.toDateString()
-                        ? "border-green-600 bg-green-50 text-green-800"
-                        : "border-gray-300 hover:border-gray-400 text-gray-800"
-                    }`}
-                  >
-                    <div className="font-medium">{date.toLocaleDateString("en-US", { weekday: "short" })}</div>
-                    <div className="text-2xl font-bold">{date.getDate()}</div>
-                    <div className="text-xs text-gray-700">{date.toLocaleDateString("en-US", { month: "short" })}</div>
-                  </button>
-                ))}
-              </div>
-              {!selectedDate && <p className="text-sm text-red-600 mt-1">Please select a date</p>}
-            </div>
-
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Select a Time Slot</label>
-              <div className="space-y-2">
-                {timeSlots.map((slot) => (
-                  <button
-                    key={slot.id}
-                    type="button"
-                    onClick={() => setSelectedTimeSlot(slot)}
-                    className={`w-full p-3 border rounded-md text-left ${
-                      selectedTimeSlot && selectedTimeSlot.id === slot.id
-                        ? "border-green-600 bg-green-50 text-green-800"
-                        : "border-gray-300 hover:border-gray-400 text-gray-700"
-                    }`}
-                  >
-                    <div className="flex justify-between items-center">
-                      <span>{slot.label}</span>
-                      <span className="font-medium text-gray-800">
-                        {formatCurrency(
-                          slot.duration === 12
-                            ? lake.price.dayPass
-                            : slot.duration === 24
-                            ? lake.price.weekendPass
-                            : lake.price.weekPass || lake.price.weekendPass * 2
-                        )}{" "}
-                        per pond
-                      </span>
-                    </div>
-                  </button>
-                ))}
-              </div>
-              {!selectedTimeSlot && <p className="text-sm text-red-600 mt-1">Please select a time slot</p>}
-            </div>
-
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={() => {
-                  if (selectedDate && selectedTimeSlot) {
-                    setStep(2);
-                  }
-                }}
-                disabled={!selectedDate || !selectedTimeSlot}
-                className={`px-6 py-2 rounded-md font-medium ${
-                  selectedDate && selectedTimeSlot ? "bg-green-600 text-white hover:bg-green-700" : "bg-gray-300 text-gray-700 cursor-not-allowed"
-                }`}
-              >
-                Continue
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Step 2: Select Ponds */}
-        {step === 2 && (
-          <div>
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Select Ponds</h3>
-            <p className="text-gray-700 mb-4">You can select multiple ponds. The price will scale linearly with the number of ponds selected.</p>
-            <div className="mb-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Stack spacing={3}>
                 {lake.ponds.map((pond) => (
-                  <div
+                  <Checkbox
                     key={pond.id}
-                    onClick={() => togglePondSelection(pond.id)}
-                    className={`border rounded-md p-4 cursor-pointer ${
-                      selectedPonds.includes(pond.id) ? "border-green-600 bg-green-50" : "border-gray-300 hover:border-gray-400"
-                    }`}
+                    isChecked={selectedPonds.includes(pond.id)}
+                    onChange={() => togglePondSelection(pond.id)}
+                    colorScheme="green"
                   >
-                    {" "}
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h4 className="font-medium text-gray-800">{pond.name}</h4>
-                        <div className="text-sm text-gray-700 mt-1">
-                          <p>Size: {pond.area || Math.floor(Math.random() * 5) + 1} acres</p>
-                          <p>Fish: {pond.fishTypes.join(", ")}</p>
-                        </div>
-                      </div>
-                      <div
-                        className={`w-5 h-5 border rounded-sm flex items-center justify-center ${
-                          selectedPonds.includes(pond.id) ? "bg-green-600 border-green-600" : "border-gray-400"
-                        }`}
-                      >
-                        {selectedPonds.includes(pond.id) && (
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+                    <HStack>
+                      <Text fontWeight="medium">{pond.name}</Text>
+                      <Text color="gray.600">
+                        ({pond.size} acres, {pond.fishTypes.join(", ")})
+                      </Text>
+                    </HStack>
+                  </Checkbox>
                 ))}
-              </div>
-              {selectedPonds.length === 0 && <p className="text-sm text-red-600 mt-2">Please select at least one pond</p>}
-            </div>{" "}
-            <div className="bg-gray-50 p-4 rounded-md mb-6">
-              <div className="flex justify-between items-center">
-                <div>
-                  <h4 className="font-medium text-gray-800">Summary</h4>
-                  <p className="text-sm text-gray-700 mt-1">
-                    {selectedDate ? formatDate(selectedDate) : "No date selected"} •{" "}
-                    {selectedTimeSlot ? selectedTimeSlot.label : "No time slot selected"}
-                  </p>
-                  <p className="text-sm text-gray-700">
-                    {selectedPonds.length} pond{selectedPonds.length !== 1 ? "s" : ""} selected
-                  </p>
-                </div>
-                <div className="text-xl font-bold text-gray-800">{formatCurrency(totalPrice)}</div>
-              </div>
-            </div>
-            <div className="flex justify-between">
-              <button type="button" onClick={() => setStep(1)} className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
-                Back
-              </button>
+              </Stack>
 
-              <button
-                type="button"
-                onClick={() => {
-                  if (selectedPonds.length > 0) {
-                    setStep(3);
-                  }
-                }}
-                disabled={selectedPonds.length === 0}
-                className={`px-6 py-2 rounded-md font-medium ${
-                  selectedPonds.length > 0 ? "bg-green-600 text-white hover:bg-green-700" : "bg-gray-300 text-gray-700 cursor-not-allowed"
-                }`}
-              >
-                Continue to Payment
-              </button>
-            </div>
-          </div>
-        )}
+              {selectedPonds.length > 0 && (
+                <Box mt={6} p={4} bg="green.50" rounded="md">
+                  <Flex justify="space-between">
+                    <Text>Total Price:</Text>
+                    <Text fontWeight="bold">{formatCurrency(totalPrice)}</Text>
+                  </Flex>
+                  <Text fontSize="sm" mt={2}>
+                    For {selectedPonds.length} pond(s), {selectedTimeSlot?.duration} hours
+                  </Text>
+                </Box>
+              )}
+            </Box>
+          )}
 
-        {/* Step 3: Payment */}
-        {step === 3 && (
-          <div>
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Payment Information</h3>{" "}
-            <div className="bg-gray-50 p-4 rounded-md mb-6">
-              <div className="flex justify-between items-center mb-4">
-                <h4 className="font-medium text-gray-800">Reservation Summary</h4>
-                <span className="text-sm text-blue-600 cursor-pointer" onClick={() => setStep(2)}>
-                  Edit
-                </span>
-              </div>
+          {activeStep === 2 && (
+            <Box as="form" id="reservation-form" onSubmit={handleSubmit(onSubmit)}>
+              <Heading as="h3" size="md" mb={4}>
+                Payment Details
+              </Heading>
 
-              <div className="space-y-2 text-sm text-gray-700">
-                <p>
-                  <span className="font-medium text-gray-800">Date:</span> {formatDate(selectedDate)}
-                </p>
-                <p>
-                  <span className="font-medium text-gray-800">Time Slot:</span> {selectedTimeSlot.label}
-                </p>
-                <p>
-                  <span className="font-medium text-gray-800">Ponds:</span> {selectedPonds.length} selected (
-                  {lake.ponds
-                    .filter((p) => selectedPonds.includes(p.id))
-                    .map((p) => p.name)
-                    .join(", ")}
-                  )
-                </p>
-                <div className="pt-2 mt-2 border-t border-gray-200 flex justify-between items-center font-medium">
-                  <span className="text-gray-800">Total:</span>
-                  <span className="text-lg text-gray-800">{formatCurrency(totalPrice)}</span>
-                </div>
-              </div>
-            </div>
-            <div className="space-y-4 mb-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
-                <input
-                  type="text"
-                  placeholder="1234 5678 9012 3456"
-                  {...register("cardNumber", {
-                    required: "Card number is required",
-                    pattern: {
-                      value: /^[\d\s]{16,19}$/,
-                      message: "Please enter a valid card number",
-                    },
-                  })}
-                  className={`w-full p-2 border rounded-md ${errors.cardNumber ? "border-red-500" : "border-gray-300"}`}
-                />
-                {errors.cardNumber && <p className="text-sm text-red-600 mt-1">{errors.cardNumber.message}</p>}
-              </div>
+              <VStack spacing={4} align="stretch">
+                <FormControl isInvalid={errors.cardholderName}>
+                  <FormLabel>Cardholder Name</FormLabel>
+                  <Input {...register("cardholderName", { required: "Name is required" })} focusBorderColor="brand.500" />
+                  <FormErrorMessage>{errors.cardholderName && errors.cardholderName.message}</FormErrorMessage>
+                </FormControl>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Expiration Date</label>
-                  <input
-                    type="text"
-                    placeholder="MM/YY"
-                    {...register("expirationDate", {
-                      required: "Expiration date is required",
+                <FormControl isInvalid={errors.cardNumber}>
+                  <FormLabel>Card Number</FormLabel>
+                  <Input
+                    {...register("cardNumber", {
+                      required: "Card number is required",
                       pattern: {
-                        value: /^(0[1-9]|1[0-2])\/\d{2}$/,
-                        message: "Please enter a valid expiration date (MM/YY)",
+                        value: /^[0-9]{16}$/,
+                        message: "Please enter a valid 16-digit card number",
                       },
                     })}
-                    className={`w-full p-2 border rounded-md ${errors.expirationDate ? "border-red-500" : "border-gray-300"}`}
+                    focusBorderColor="brand.500"
                   />
-                  {errors.expirationDate && <p className="text-sm text-red-600 mt-1">{errors.expirationDate.message}</p>}
-                </div>
+                  <FormErrorMessage>{errors.cardNumber && errors.cardNumber.message}</FormErrorMessage>
+                </FormControl>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">CVC</label>
-                  <input
-                    type="text"
-                    placeholder="123"
-                    {...register("cvc", {
-                      required: "CVC is required",
-                      pattern: {
-                        value: /^\d{3,4}$/,
-                        message: "Please enter a valid CVC",
-                      },
-                    })}
-                    className={`w-full p-2 border rounded-md ${errors.cvc ? "border-red-500" : "border-gray-300"}`}
-                  />
-                  {errors.cvc && <p className="text-sm text-red-600 mt-1">{errors.cvc.message}</p>}
-                </div>
-              </div>
+                <HStack>
+                  <FormControl isInvalid={errors.expiryDate}>
+                    <FormLabel>Expiry Date</FormLabel>
+                    <Input
+                      placeholder="MM/YY"
+                      {...register("expiryDate", {
+                        required: "Expiry date is required",
+                        pattern: {
+                          value: /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
+                          message: "Please enter a valid date in MM/YY format",
+                        },
+                      })}
+                      focusBorderColor="brand.500"
+                    />
+                    <FormErrorMessage>{errors.expiryDate && errors.expiryDate.message}</FormErrorMessage>
+                  </FormControl>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Name on Card</label>
-                <input
-                  type="text"
-                  placeholder="John Doe"
-                  {...register("nameOnCard", {
-                    required: "Name on card is required",
-                  })}
-                  className={`w-full p-2 border rounded-md ${errors.nameOnCard ? "border-red-500" : "border-gray-300"}`}
-                />
-                {errors.nameOnCard && <p className="text-sm text-red-600 mt-1">{errors.nameOnCard.message}</p>}
-              </div>
-            </div>
-            <div className="flex justify-between mt-8">
-              <button type="button" onClick={() => setStep(2)} className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
-                Back
-              </button>
+                  <FormControl isInvalid={errors.cvv}>
+                    <FormLabel>CVV</FormLabel>
+                    <Input
+                      {...register("cvv", {
+                        required: "CVV is required",
+                        pattern: {
+                          value: /^[0-9]{3,4}$/,
+                          message: "Please enter a valid CVV",
+                        },
+                      })}
+                      focusBorderColor="brand.500"
+                    />
+                    <FormErrorMessage>{errors.cvv && errors.cvv.message}</FormErrorMessage>
+                  </FormControl>
+                </HStack>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className={`px-6 py-2 rounded-md font-medium ${
-                  loading ? "bg-gray-400 text-white cursor-not-allowed" : "bg-green-600 text-white hover:bg-green-700"
-                }`}
-              >
-                {loading ? "Processing..." : "Complete Reservation"}
-              </button>
-            </div>
-          </div>
-        )}
-      </form>
-    </div>
+                <Box mt={6} p={4} bg="green.50" rounded="md">
+                  <Heading as="h4" size="sm" mb={2}>
+                    Reservation Summary
+                  </Heading>
+                  <Divider mb={3} />
+                  <VStack align="stretch" spacing={2}>
+                    <Flex justify="space-between">
+                      <Text>Date:</Text>
+                      <Text>{selectedDate ? formatDate(selectedDate) : "Not selected"}</Text>
+                    </Flex>
+                    <Flex justify="space-between">
+                      <Text>Time:</Text>
+                      <Text>{selectedTimeSlot ? selectedTimeSlot.label : "Not selected"}</Text>
+                    </Flex>
+                    <Flex justify="space-between">
+                      <Text>Ponds:</Text>
+                      <Text>{selectedPonds.length} selected</Text>
+                    </Flex>
+                    <Divider my={2} />
+                    <Flex justify="space-between" fontWeight="bold">
+                      <Text>Total:</Text>
+                      <Text>{formatCurrency(totalPrice)}</Text>
+                    </Flex>
+                  </VStack>
+                </Box>
+              </VStack>
+            </Box>
+          )}
+        </ModalBody>
+
+        <ModalFooter>
+          <Button variant="ghost" mr={3} onClick={onClose}>
+            Cancel
+          </Button>
+
+          {activeStep > 0 && (
+            <Button variant="outline" mr={3} onClick={() => setActiveStep(activeStep - 1)}>
+              Previous
+            </Button>
+          )}
+
+          {activeStep < 2 ? (
+            <Button
+              colorScheme="green"
+              onClick={() => setActiveStep(activeStep + 1)}
+              isDisabled={(activeStep === 0 && (!selectedDate || !selectedTimeSlot)) || (activeStep === 1 && selectedPonds.length === 0)}
+            >
+              Next
+            </Button>
+          ) : (
+            <Button colorScheme="green" type="submit" form="reservation-form" isLoading={loading} loadingText="Booking...">
+              Complete Booking
+            </Button>
+          )}
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 }
