@@ -8,7 +8,8 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 
 # Install dependencies
-RUN npm ci --legacy-peer-deps
+# Use npm install instead of npm ci to update lock file with the versions in package.json
+RUN npm install --legacy-peer-deps
 
 # Build stage
 FROM base AS build
