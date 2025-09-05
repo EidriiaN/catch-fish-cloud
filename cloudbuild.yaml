@@ -20,7 +20,8 @@ steps:
       - "europe-west1-docker.pkg.dev/$PROJECT_ID/catch-fish-repo/catch-fish-app:$COMMIT_SHA"
       - "--region"
       - "europe-west1" # Your desired Cloud Run region (choose one close to your users)
-      - "--allow-unauthenticated" # Only if you want your app publicly accessible
+      - "--ingress=all"
+      - "--no-invoker-iam-check"
       - "--platform=managed" # Ensure you're using the managed platform
       - "--min-instances=0" # Crucial for a cheap setup (scales to zero when idle)
       - "--max-instances=1" # Start with a low max for testing/low traffic
