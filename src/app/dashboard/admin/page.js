@@ -62,7 +62,7 @@ export default function AdminDashboard() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <p className="text-gray-700">Loading your dashboard...</p>
+          <p className="text-gray-700">Se încarcă panoul de administrare...</p>
         </div>
       </div>
     );
@@ -71,52 +71,52 @@ export default function AdminDashboard() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
-        <h1 className="text-3xl font-bold">Lake Administrator Dashboard</h1>
+        <h1 className="text-3xl font-bold">Panou administrator lacuri</h1>
         <Link
           href="/dashboard/admin/add-lake"
           className="mt-4 md:mt-0 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200 inline-block"
         >
-          Add New Lake
+          Adaugă lac nou
         </Link>
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-lg font-semibold mb-2">Your Lakes</h3>
+          <h3 className="text-lg font-semibold mb-2">Lacurile tale</h3>
           <p className="text-3xl font-bold text-green-600">{adminLakes.length}</p>
-          <p className="text-gray-700 mt-2">Total lakes you manage</p>
+          <p className="text-gray-700 mt-2">Total lacuri administrate</p>
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-lg font-semibold mb-2">Pending Reservations</h3>
+          <h3 className="text-lg font-semibold mb-2">Rezervări în așteptare</h3>
           <p className="text-3xl font-bold text-yellow-600">{pendingReservations.length}</p>
-          <p className="text-gray-700 mt-2">Reservations awaiting approval</p>
+          <p className="text-gray-700 mt-2">Rezervări care așteaptă aprobare</p>
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-lg font-semibold mb-2">Total Ponds</h3>
+          <h3 className="text-lg font-semibold mb-2">Total heleșteie</h3>
           <p className="text-3xl font-bold text-blue-600">{adminLakes.reduce((total, lake) => total + lake.ponds.length, 0)}</p>
-          <p className="text-gray-700 mt-2">Across all your lakes</p>
+          <p className="text-gray-700 mt-2">Pe toate lacurile tale</p>
         </div>
       </div>
 
       {/* Pending Reservations */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-xl font-semibold mb-4">Pending Reservations</h2>
+        <h2 className="text-xl font-semibold mb-4">Rezervări în așteptare</h2>
 
         {pendingReservations.length === 0 ? (
-          <p className="text-gray-700">No pending reservations at this time.</p>
+          <p className="text-gray-700">Nu există rezervări în așteptare în acest moment.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Lake</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Pond</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Price</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Lac</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Heleșteu</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Data</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Preț</th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">Acțiuni</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -127,8 +127,8 @@ export default function AdminDashboard() {
                     <td className="px-6 py-4 whitespace-nowrap">{formatDate(reservation.date)}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{formatCurrency(reservation.price)}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button className="text-green-600 hover:text-green-900 mr-4">Approve</button>
-                      <button className="text-red-600 hover:text-red-900">Decline</button>
+                      <button className="text-green-600 hover:text-green-900 mr-4">Aprobă</button>
+                      <button className="text-red-600 hover:text-red-900">Respinge</button>
                     </td>
                   </tr>
                 ))}
@@ -140,16 +140,16 @@ export default function AdminDashboard() {
 
       {/* Your Lakes */}
       <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-semibold mb-4">Your Lakes</h2>
+        <h2 className="text-xl font-semibold mb-4">Lacurile tale</h2>
 
         {adminLakes.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-gray-700 mb-4">You haven&apos;t added any lakes yet.</p>
+            <p className="text-gray-700 mb-4">Încă nu ai adăugat niciun lac.</p>
             <Link
               href="/dashboard/admin/add-lake"
               className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200 inline-block"
             >
-              Add Your First Lake
+              Adaugă primul tău lac
             </Link>
           </div>
         ) : (
@@ -157,16 +157,16 @@ export default function AdminDashboard() {
             {adminLakes.map((lake) => (
               <div key={lake.id} className="border rounded-lg overflow-hidden">
                 <div className="h-32 bg-gray-200 flex items-center justify-center text-gray-700">
-                  <span>Lake Image</span>
+                  <span>Imagine lac</span>
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-lg mb-1">{lake.name}</h3>
                   <p className="text-gray-700 text-sm mb-2">
-                    {lake.ponds.length} pond{lake.ponds.length !== 1 ? "s" : ""}
+                    {lake.ponds.length} heleșteu{lake.ponds.length !== 1 ? "ri" : ""}
                   </p>
                   <p className="text-gray-700 mb-4">{lake.description.substring(0, 80)}...</p>
                   <Link href={`/dashboard/admin/lake/${lake.id}`} className="text-green-600 hover:text-green-800 font-medium">
-                    Manage Lake →
+                    Gestionează lacul →
                   </Link>
                 </div>
               </div>

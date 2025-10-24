@@ -1,4 +1,4 @@
-# FishingLakes Application Development Plan
+# Pește Prins Application Development Plan
 
 ## Project Overview
 

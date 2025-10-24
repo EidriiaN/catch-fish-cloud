@@ -1,47 +1,47 @@
-# FishingLakes - Connecting Anglers with Private Fishing Spots
+# Pește Prins - Conectăm pescarii cu locuri private de pescuit
 
-FishingLakes is a web application for connecting fishermen with private fishing lakes. The platform allows lake administrators to list their lakes/ponds and manage reservations, while fishermen can discover, book, and review fishing locations.
+Pește Prins este o aplicație web care conectează pescarii cu lacuri și bălți private. Platforma permite administratorilor să listeze lacurile/heleșteiele și să gestioneze rezervările, iar pescarilor să descopere, să rezerve și să lase recenzii pentru locații de pescuit.
 
 ## Project Overview
 
-This project is built with Next.js 15+ and uses Chakra UI for a modern, responsive design. It's structured to provide a seamless experience for both anglers looking for premium fishing spots and lake owners managing their properties.
+Acest proiect este construit cu Next.js 15+ și folosește Chakra UI pentru un design modern și responsiv. Este structurat pentru a oferi o experiență cursivă atât pescarilor care caută locuri premium, cât și proprietarilor care își administrează lacurile.
 
-## Key Features
+## Funcționalități cheie
 
-- **Discover Lakes**: Browse through a curated list of private fishing lakes with detailed information
-- **Advanced Filtering**: Find lakes by price range, rating, and specific amenities
-- **Interactive Maps**: View lake locations and explore individual ponds with Leaflet.js
-- **Reservation System**: Book your fishing spot in advance with date and pond selection
-- **User Dashboard**: Manage your bookings, reviews, and preferences
-- **Admin Dashboard**: For lake owners to manage their listings, reservations, and customer feedback
-- **Reviews & Ratings**: Share your experiences and read what others have to say
+- **Descoperă bălți și lacuri**: Răsfoiește o listă selectată de locații private cu informații detaliate
+- **Filtrare avansată**: Găsește după preț, rating și facilități
+- **Hărți interactive**: Vezi locația lacurilor și explorează heleșteiele cu Leaflet.js
+- **Sistem de rezervări**: Programează din timp cu alegerea datei și a heleșteului
+- **Panou utilizator**: Gestionează rezervările, recenziile și preferințele
+- **Panou administrator**: Pentru proprietarii de lacuri – gestionare listări, rezervări și feedback
+- **Recenzii și ratinguri**: Împărtășește-ți experiența și citește opiniile altora
 
-## Technology Stack
+## Tehnologii
 
-- **Frontend**: Next.js with React (JavaScript)
-- **Styling**: Chakra UI
-- **Authentication**: Custom auth during development → Firebase Auth
-- **Database**: Firebase (Firestore)
-- **Maps**: Leaflet.js with OpenStreetMap → Google Maps API
-- **Deployment**: Vercel
+- **Frontend**: Next.js cu React (JavaScript)
+- **Stilizare**: Chakra UI
+- **Autentificare**: Autentificare custom în dezvoltare → Firebase Auth
+- **Bază de date**: Firebase (Firestore)
+- **Hărți**: Leaflet.js cu OpenStreetMap → Google Maps API
+- **Deploy**: Vercel
 
-## Getting Started
+## Pornire rapidă
 
-### Prerequisites
+### Cerințe preliminare
 
-- Node.js 18+ (LTS version recommended)
-- npm or yarn
+- Node.js 18+ (recomandat LTS)
+- npm sau yarn
 
-### Installation
+### Instalare
 
-1. Clone the repository
+1. Clonează repository-ul
 
 ```bash
 git clone https://github.com/EidriiaN/catch-fish-cloud.git
 cd catch-fish-cloud
 ```
 
-2. Install dependencies
+2. Instalează dependențele
 
 ```bash
 npm install
@@ -49,7 +49,7 @@ npm install
 yarn install
 ```
 
-3. Run the development server
+3. Rulează serverul de dezvoltare
 
 ```bash
 npm run dev
@@ -57,9 +57,9 @@ npm run dev
 yarn dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the application
+4. Deschide [http://localhost:3000](http://localhost:3000) în browser pentru a vedea aplicația
 
-## Project Structure
+## Structura proiectului
 
 ```
 src/
@@ -82,39 +82,50 @@ src/
     theme/                 # Chakra UI theme customization
 ```
 
-## Development Status
+## Starea dezvoltării
 
-The project is currently in active development. Here's an overview of the current status:
+Proiectul este în dezvoltare activă. Iată o privire de ansamblu asupra stării curente:
 
-### Completed
+### Finalizate
 
-- ✅ Project setup with Next.js and Chakra UI
-- ✅ Basic page structure and navigation
-- ✅ Responsive UI components and layouts
-- ✅ Mock data integration for development
-- ✅ Lake listing page with filters and search
-- ✅ Fixed hydration errors and component structure
+- ✅ Configurare proiect cu Next.js și Chakra UI
+- ✅ Structură de pagini și navigație de bază
+- ✅ Componente UI responsive și layout-uri
+- ✅ Integrare mock data pentru dezvoltare
+- ✅ Pagină listare lacuri cu filtre și căutare
+- ✅ Rezolvate erori de hidratare și structură componente
 
-### In Progress
+### În lucru
 
-- 🔄 Lake detail page with maps and reservation form
-- 🔄 User and admin dashboards
-- 🔄 Reservation system implementation
-- 🔄 Review submission and display
+- 🔄 Pagină detalii lac cu hărți și formular de rezervare
+- 🔄 Panouri utilizator și administrator
+- 🔄 Implementare sistem de rezervări
+- 🔄 Adăugare și afișare recenzii
 
-### Planned
+### Planificat
 
-- Firebase integration for authentication and data storage
-- Enhanced map features with pond selection
-- Admin tools for lake management
-- Deployment and production setup
+- Integrare Firebase pentru autentificare și stocare date
+- Funcționalități hărți îmbunătățite cu selecție heleșteie
+- Unelte admin pentru administrarea lacurilor
+- Deploy și configurare producție
 
 For a more detailed development plan, see [DEVELOPMENT_PLAN.md](./DEVELOPMENT_PLAN.md).
 
-## Contributing
+## Contribuții
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contribuțiile sunt binevenite! Poți deschide un Pull Request.
 
-## License
+## Licență
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Acest proiect este licențiat sub MIT – vezi fișierul [LICENSE](LICENSE) pentru detalii.
+
+---
+
+## Localizare (i18n)
+
+Interfața utilizator este tradusă în limba română (ro-RO), inclusiv formatele de dată și monedă. Dacă dorești să revii temporar la engleză:
+
+- Modifică `lang` din `src/app/layout.js` la `"en"` și ajustează textele statice după nevoie.
+- Pentru o soluție scalabilă, recomandăm integrarea unui framework i18n (ex. `next-intl` sau `react-intl`) și extragerea textelor într-un dicționar.
+
+Notă: formatul monetar folosește locale `ro-RO`, dar moneda rămâne cea definită în cod (implicit USD) – vezi `formatCurrency` în `src/lib/utils/format.js`.

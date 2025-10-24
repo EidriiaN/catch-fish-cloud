@@ -56,19 +56,19 @@ export const LakeCard = ({ lake }) => {
         {lake.images && lake.images.length > 0 ? (
           <Image
             src={lake.images[0]}
-            alt={`${name} image`}
+            alt={`Imagine ${name}`}
             objectFit="cover"
             w="full"
             h="full"
             fallback={
               <Box w="full" h="full" bg="gray.200" display="flex" alignItems="center" justifyContent="center">
-                <Text>Lake Image</Text>
+                <Text>Imagine lac</Text>
               </Box>
             }
           />
         ) : (
           <Flex w="full" h="full" alignItems="center" justifyContent="center" bg="gray.200">
-            <Text color="gray.700">Lake Image Placeholder</Text>
+            <Text color="gray.700">Imagine lac (temporar)</Text>
           </Flex>
         )}
       </Box>
@@ -86,7 +86,7 @@ export const LakeCard = ({ lake }) => {
           <Flex alignItems="center" mb={2}>
             <Flex>{generateStars(rating)}</Flex>
             <Text ml={1} fontSize="sm" color={textColor}>
-              {rating} ({reviews.length} reviews)
+              {rating} ({reviews.length} recenzii)
             </Text>
           </Flex>
 
@@ -97,7 +97,7 @@ export const LakeCard = ({ lake }) => {
 
         <Box>
           <Text fontWeight="semibold" fontSize="lg" color={priceColor} mb={3}>
-            From {formatCurrency(price.dayPass)} / day
+            De la {formatCurrency(price.dayPass)} / zi
           </Text>
 
           <Button
@@ -110,7 +110,7 @@ export const LakeCard = ({ lake }) => {
               boxShadow: "sm",
             }}
           >
-            View Details
+            Vezi detalii
           </Button>
         </Box>
       </Stack>

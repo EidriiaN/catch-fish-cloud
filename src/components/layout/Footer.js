@@ -14,10 +14,10 @@ export default function Footer() {
           {/* Company Info */}
           <Stack spacing={4}>
             <Heading as="h3" size="md" mb={1}>
-              FishingLakes
+              Pește Prins
             </Heading>
             <Text color="gray.200" mb={4}>
-              Connecting anglers with the best private fishing locations.
+              Conectăm pescarii cu cele mai bune locații private de pescuit.
             </Text>
             <Stack direction={"row"} spacing={4}>
               <Box as="a" href="#" color="gray.400" _hover={{ color: "white" }}>
@@ -35,20 +35,20 @@ export default function Footer() {
           {/* Quick Links */}
           <Stack spacing={4}>
             <Heading as="h3" size="md" mb={2}>
-              Quick Links
+              Linkuri utile
             </Heading>
             <Stack spacing={2}>
               <Text as={Link} href="/lakes" color="gray.200" _hover={{ color: "white" }}>
-                Find Lakes
+                Caută bălți
               </Text>
               <Text as={Link} href="/auth/login" color="gray.200" _hover={{ color: "white" }}>
-                Login
+                Autentificare
               </Text>
               <Text as={Link} href="/auth/register" color="gray.200" _hover={{ color: "white" }}>
-                Register
+                Înregistrare
               </Text>
               <Text as={Link} href="/about" color="gray.200" _hover={{ color: "white" }}>
-                About Us
+                Despre noi
               </Text>
               <Text as={Link} href="/contact" color="gray.200" _hover={{ color: "white" }}>
                 Contact
@@ -59,19 +59,19 @@ export default function Footer() {
           {/* Contact Info */}
           <Stack spacing={4}>
             <Heading as="h3" size="md" mb={2}>
-              Contact Us
+              Contactează-ne
             </Heading>
             <Box as="address" fontStyle="normal" color="gray.200">
-              <Text>1234 Fishing Lane</Text>
+              <Text>Str. Pescuitului 1234</Text>
               <Text>Lakeville, CA 90210</Text>
               <Text mt={2}>
                 Email:{" "}
-                <Box as="a" href="mailto:info@fishinglakes.com" _hover={{ color: "white" }}>
-                  info@fishinglakes.com
+                <Box as="a" href="mailto:info@pesteprins.ro" _hover={{ color: "white" }}>
+                  info@pesteprins.ro
                 </Box>
               </Text>
               <Text>
-                Phone:{" "}
+                Telefon:{" "}
                 <Box as="a" href="tel:+1-555-123-4567" _hover={{ color: "white" }}>
                   (555) 123-4567
                 </Box>
@@ -82,7 +82,7 @@ export default function Footer() {
 
         <Box mt={8} pt={8} borderTopWidth={1} borderColor="gray.700">
           <Text color="gray.200" textAlign="center">
-            &copy; {currentYear} FishingLakes. All rights reserved.
+            &copy; {currentYear} Pește Prins. Toate drepturile rezervate.
           </Text>
         </Box>
       </Container>

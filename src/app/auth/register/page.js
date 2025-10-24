@@ -67,7 +67,7 @@ export default function Register() {
       <Box bg={useColorModeValue("white", "gray.700")} p={8} rounded="lg" boxShadow="md">
         <Stack spacing={6}>
           <Heading as="h1" size="lg" textAlign="center">
-            Create Your Account
+            Creează-ți contul
           </Heading>
 
           {error && (
@@ -80,22 +80,22 @@ export default function Register() {
           <form onSubmit={handleSubmit}>
             <VStack spacing={4}>
               <FormControl id="name" isRequired>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel>Nume complet</FormLabel>
                 <Input type="text" value={name} onChange={(e) => setName(e.target.value)} focusBorderColor="brand.500" />
               </FormControl>
 
               <FormControl id="email" isRequired>
-                <FormLabel>Email Address</FormLabel>
+                <FormLabel>Adresă de email</FormLabel>
                 <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} focusBorderColor="brand.500" />
               </FormControl>
 
               <FormControl id="password" isRequired>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Parolă</FormLabel>
                 <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} focusBorderColor="brand.500" minLength={6} />
               </FormControl>
 
               <FormControl id="confirmPassword" isRequired>
-                <FormLabel>Confirm Password</FormLabel>
+                <FormLabel>Confirmă parola</FormLabel>
                 <Input
                   type="password"
                   value={confirmPassword}
@@ -106,30 +106,30 @@ export default function Register() {
               </FormControl>
 
               <FormControl id="userType">
-                <FormLabel>Account Type</FormLabel>
+                <FormLabel>Tip de cont</FormLabel>
                 <RadioGroup value={userType} onChange={setUserType}>
                   <Stack direction="row">
                     <Radio value="user" colorScheme="green">
-                      User
+                      Utilizator
                     </Radio>
                     <Radio value="lakeOwner" colorScheme="green">
-                      Lake Owner
+                      Proprietar lac
                     </Radio>
                   </Stack>
                 </RadioGroup>
               </FormControl>
 
-              <Button type="submit" colorScheme="green" size="md" width="full" isLoading={isLoading} loadingText="Creating Account..." mt={4}>
-                Create Account
+              <Button type="submit" colorScheme="green" size="md" width="full" isLoading={isLoading} loadingText="Se creează contul..." mt={4}>
+                Creează cont
               </Button>
             </VStack>
           </form>
 
           <Box textAlign="center">
             <Text color="gray.600">
-              Already have an account?{" "}
+              Ai deja un cont?{" "}
               <ChakraLink as={Link} href="/auth/login" color="brand.500">
-                Sign in here
+                Autentifică-te aici
               </ChakraLink>
             </Text>
           </Box>

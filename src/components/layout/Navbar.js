@@ -66,7 +66,7 @@ export default function Navbar() {
         >
           <Flex flex={{ base: 1 }} align="center">
             <Text as={Link} href="/" textAlign="left" fontFamily={"heading"} color="brand.500" fontWeight="bold" fontSize="xl" cursor="pointer">
-              FishingLakes
+              Pește Prins
             </Text>
 
             <Flex display={{ base: "none", md: "flex" }} ml={10}>
@@ -84,19 +84,19 @@ export default function Navbar() {
                   color="gray.600"
                   _hover={{ color: "brand.500" }}
                 >
-                  Dashboard
+                  Panou
                 </Button>
                 <Button onClick={handleLogout} colorScheme="green" variant="solid">
-                  Logout
+                  Deconectare
                 </Button>
               </>
             ) : (
               <>
                 <Button as={Link} href="/auth/login" variant="link" color="gray.600" _hover={{ color: "brand.500" }}>
-                  Sign In
+                  Autentificare
                 </Button>
                 <Button as={Link} href="/auth/register" colorScheme="green" variant="solid">
-                  Sign Up
+                  Creează cont
                 </Button>
               </>
             )}
@@ -107,7 +107,7 @@ export default function Navbar() {
               onClick={onToggle}
               icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
               variant={"ghost"}
-              aria-label={"Toggle Navigation"}
+              aria-label={"Comută navigația"}
             />
           </Flex>
         </Flex>
@@ -167,7 +167,7 @@ const MobileNav = ({ currentUser, isAdmin, handleLogout }) => {
             color="gray.600"
             _hover={{ color: "brand.500" }}
           >
-            Dashboard
+            Panou
           </Box>
           <Box
             py={2}
@@ -184,16 +184,16 @@ const MobileNav = ({ currentUser, isAdmin, handleLogout }) => {
             border="none"
             width="100%"
           >
-            Logout
+            Deconectare
           </Box>
         </>
       ) : (
         <>
           <Box py={2} as={Link} href="/auth/login" display="block" fontSize="md" fontWeight={500} color="gray.600" _hover={{ color: "brand.500" }}>
-            Sign In
+            Autentificare
           </Box>
           <Box py={2} as={Link} href="/auth/register" display="block" fontSize="md" fontWeight={500} color="gray.600" _hover={{ color: "brand.500" }}>
-            Sign Up
+            Creează cont
           </Box>
         </>
       )}
@@ -213,11 +213,11 @@ const MobileNavItem = ({ label, href }) => {
 
 const NAV_ITEMS = [
   {
-    label: "Find Lakes",
+    label: "Caută bălți",
     href: "/lakes",
   },
   {
-    label: "About",
+    label: "Despre",
     href: "/about",
   },
   {

@@ -49,7 +49,7 @@ export default function LakeDetail({ params }) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-center items-center h-64">
-          <p className="text-gray-700">Loading lake information...</p>
+          <p className="text-gray-700">Se încarcă informațiile despre lac...</p>
         </div>
       </div>
     );
@@ -59,10 +59,10 @@ export default function LakeDetail({ params }) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">Lake Not Found</h2>
-          <p className="text-gray-700 mb-6">The lake you&apos;re looking for doesn&apos;t exist or may have been removed.</p>
+          <h2 className="text-2xl font-bold text-red-600 mb-4">Lacul nu a fost găsit</h2>
+          <p className="text-gray-700 mb-6">Lacul pe care îl cauți nu există sau a fost eliminat.</p>
           <Link href="/lakes" className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded">
-            Browse All Lakes
+            Vezi toate bălțile
           </Link>
         </div>
       </div>
@@ -110,7 +110,7 @@ export default function LakeDetail({ params }) {
               />
             </svg>
             <span>
-              {lake.ponds.length} pond{lake.ponds.length !== 1 ? "s" : ""} available
+              {lake.ponds.length} heleșteu{lake.ponds.length !== 1 ? "ri" : ""} disponibile
             </span>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function LakeDetail({ params }) {
 
       {/* Photo Gallery (Placeholder for now) */}
       <div className="mb-8 bg-gray-200 h-80 rounded-lg flex items-center justify-center">
-        <p className="text-gray-700">Lake Photo Gallery</p>
+        <p className="text-gray-700">Galerie foto lac</p>
       </div>
 
       {/* Tabs */}
@@ -132,7 +132,7 @@ export default function LakeDetail({ params }) {
                 : "border-transparent text-gray-700 hover:text-gray-900 hover:border-gray-300"
             }`}
           >
-            Lake Details
+            Detalii despre lac
           </button>
           <button
             onClick={() => setSelectedTab("ponds")}
@@ -142,7 +142,7 @@ export default function LakeDetail({ params }) {
                 : "border-transparent text-gray-700 hover:text-gray-900 hover:border-gray-300"
             }`}
           >
-            Ponds ({lake.ponds.length})
+            Heleșteie ({lake.ponds.length})
           </button>
           <button
             onClick={() => setSelectedTab("reviews")}
@@ -152,7 +152,7 @@ export default function LakeDetail({ params }) {
                 : "border-transparent text-gray-700 hover:text-gray-900 hover:border-gray-300"
             }`}
           >
-            Reviews ({lake.reviews.length})
+            Recenzii ({lake.reviews.length})
           </button>
           <button
             onClick={() => setSelectedTab("map")}
@@ -160,7 +160,7 @@ export default function LakeDetail({ params }) {
               selectedTab === "map" ? "border-green-600 text-green-600" : "border-transparent text-gray-700 hover:text-gray-900 hover:border-gray-300"
             }`}
           >
-            Map
+            Hartă
           </button>
         </nav>
       </div>
@@ -172,7 +172,7 @@ export default function LakeDetail({ params }) {
           <div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="bg-green-50 p-6 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Lake Overview</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Prezentare generală</h3>
                 <ul className="space-y-2">
                   <li className="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-green-600 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
@@ -182,7 +182,7 @@ export default function LakeDetail({ params }) {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span>{lake.ponds.length} fishing ponds</span>
+                    <span>{lake.ponds.length} heleșteie pentru pescuit</span>
                   </li>
                   <li className="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-green-600 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
@@ -192,7 +192,7 @@ export default function LakeDetail({ params }) {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span>Total pond area: {totalPondArea} acres</span>
+                    <span>Suprafață totală heleșteie: {totalPondArea} acri</span>
                   </li>
                   <li className="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-green-600 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
@@ -202,33 +202,33 @@ export default function LakeDetail({ params }) {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span>Fish species: {Array.from(new Set(lake.ponds.flatMap((pond) => pond.fishTypes))).join(", ")}</span>
+                    <span>Specii de pești: {Array.from(new Set(lake.ponds.flatMap((pond) => pond.fishTypes))).join(", ")}</span>
                   </li>
                 </ul>
               </div>
 
               <div className="bg-green-50 p-6 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Pricing</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Tarife</h3>
                 <ul className="space-y-2">
                   <li className="flex justify-between">
-                    <span>Day Pass (12h):</span>
-                    <span className="font-semibold">{formatCurrency(lake.price.dayPass)} per pond</span>
+                    <span>Permis de zi (12h):</span>
+                    <span className="font-semibold">{formatCurrency(lake.price.dayPass)} per heleșteu</span>
                   </li>
                   <li className="flex justify-between">
-                    <span>Weekend Pass (24h):</span>
-                    <span className="font-semibold">{formatCurrency(lake.price.weekendPass)} per pond</span>
+                    <span>Permis de weekend (24h):</span>
+                    <span className="font-semibold">{formatCurrency(lake.price.weekendPass)} per heleșteu</span>
                   </li>
                   {lake.price.weekPass && (
                     <li className="flex justify-between">
-                      <span>Week Pass (48h):</span>
-                      <span className="font-semibold">{formatCurrency(lake.price.weekPass)} per pond</span>
+                      <span>Permis de 2 zile (48h):</span>
+                      <span className="font-semibold">{formatCurrency(lake.price.weekPass)} per heleșteu</span>
                     </li>
                   )}
                 </ul>
               </div>
 
               <div className="bg-green-50 p-6 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Facilities</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Facilități</h3>
                 <ul className="space-y-2">
                   <li className="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-green-600 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
@@ -238,7 +238,7 @@ export default function LakeDetail({ params }) {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span>Parking available</span>
+                    <span>Parcare disponibilă</span>
                   </li>
                   <li className="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-green-600 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
@@ -248,7 +248,7 @@ export default function LakeDetail({ params }) {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span>Restrooms on site</span>
+                    <span>Toalete la locație</span>
                   </li>
                   <li className="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-green-600 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
@@ -258,19 +258,19 @@ export default function LakeDetail({ params }) {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span>Fishing equipment rental</span>
+                    <span>Închiriere echipament de pescuit</span>
                   </li>
                 </ul>
               </div>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-semibold mb-4">About This Lake</h3>
+              <h3 className="text-lg font-semibold mb-4">Despre acest lac</h3>
               <p className="text-gray-700 mb-4">{lake.description}</p>
               <p className="text-gray-700">
-                This private fishing lake offers a serene environment for anglers of all experience levels. Each pond is regularly stocked with
-                various fish species to ensure a rewarding fishing experience. The lake property is well-maintained and provides essential amenities
-                for a comfortable day of fishing.
+                Acest lac privat de pescuit oferă un mediu liniștit pentru pescari de toate nivelurile. Fiecare heleșteu este populat periodic cu
+                diverse specii de pești pentru a asigura o experiență reușită. Proprietatea este bine întreținută și oferă facilități esențiale pentru
+                o zi confortabilă la pescuit.
               </p>
             </div>
           </div>
@@ -280,9 +280,10 @@ export default function LakeDetail({ params }) {
         {selectedTab === "ponds" && (
           <div>
             <div className="mb-6">
-              <h3 className="text-xl font-semibold mb-4">Available Ponds</h3>
+              <h3 className="text-xl font-semibold mb-4">Heleșteie disponibile</h3>
               <p className="text-gray-700 mb-4">
-                This lake has {lake.ponds.length} ponds available for reservation. Each pond has its own unique characteristics and fish species.
+                Acest lac are {lake.ponds.length} heleșteie disponibile pentru rezervare. Fiecare heleșteu are caracteristici și specii de pești
+                proprii.
               </p>
             </div>
 
@@ -298,21 +299,21 @@ export default function LakeDetail({ params }) {
                   <div key={pond.id} className="bg-white rounded-lg shadow-md overflow-hidden">
                     <div className="h-40 bg-gray-200 relative">
                       <div className="absolute inset-0 flex items-center justify-center text-gray-700">
-                        <span>Pond Image</span>
+                        <span>Imagine heleșteu</span>
                       </div>
                     </div>
                     <div className="p-4">
                       <h4 className="text-lg font-semibold mb-2">{pond.name}</h4>
 
                       <div className="mb-4">
-                        <h5 className="font-medium text-gray-700 mb-1">Pond Details:</h5>
+                        <h5 className="font-medium text-gray-700 mb-1">Detalii heleșteu:</h5>
                         <ul className="text-sm text-gray-700 space-y-1">
-                          <li>• Size: {pondArea} acres</li>
-                          <li>• Max Capacity: {pond.maxCapacity} anglers</li>
-                          <li>• Fish Species: {pond.fishTypes.join(", ")}</li>
+                          <li>• Suprafață: {pondArea} acri</li>
+                          <li>• Capacitate maximă: {pond.maxCapacity} pescari</li>
+                          <li>• Specii de pești: {pond.fishTypes.join(", ")}</li>
                           {distance && (
                             <li>
-                              • Distance to {nextPond.name}: {distance} meters
+                              • Distanță până la {nextPond.name}: {distance} metri
                             </li>
                           )}
                         </ul>
@@ -322,7 +323,7 @@ export default function LakeDetail({ params }) {
                         onClick={() => setShowReservationModal(true)}
                         className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded transition duration-200"
                       >
-                        Reserve This Pond
+                        Rezervă acest heleșteu
                       </button>
                     </div>
                   </div>
@@ -337,7 +338,7 @@ export default function LakeDetail({ params }) {
           <div>
             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
               <div>
-                <h3 className="text-xl font-semibold mb-1">Customer Reviews</h3>
+                <h3 className="text-xl font-semibold mb-1">Recenzii</h3>
                 <div className="flex items-center">
                   <div className="flex text-yellow-400 mr-2">
                     {[1, 2, 3, 4, 5].map((star) => (
@@ -354,7 +355,7 @@ export default function LakeDetail({ params }) {
                     ))}
                   </div>
                   <p className="text-gray-700">
-                    {lake.rating} out of 5 ({lake.reviews.length} reviews)
+                    {lake.rating} din 5 ({lake.reviews.length} recenzii)
                   </p>
                 </div>
               </div>
@@ -364,14 +365,14 @@ export default function LakeDetail({ params }) {
                   onClick={() => setShowReviewModal(true)}
                   className="mt-4 md:mt-0 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200"
                 >
-                  Write a Review
+                  Scrie o recenzie
                 </button>
               )}
             </div>
 
             {lake.reviews.length === 0 ? (
               <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                <p className="text-gray-700">No reviews yet. Be the first to review this lake!</p>
+                <p className="text-gray-700">Încă nu există recenzii. Fii primul care lasă o recenzie!</p>
               </div>
             ) : (
               <div className="space-y-6">
@@ -408,8 +409,8 @@ export default function LakeDetail({ params }) {
         {/* Map Tab */}
         {selectedTab === "map" && (
           <div>
-            <h3 className="text-xl font-semibold mb-4">Lake Map</h3>
-            <p className="text-gray-700 mb-4">View the lake location and all available ponds. Click on a pond to see more details.</p>
+            <h3 className="text-xl font-semibold mb-4">Harta lacului</h3>
+            <p className="text-gray-700 mb-4">Vezi locația lacului și toate heleșteiele disponibile. Apasă pe un heleșteu pentru detalii.</p>
             <div className="h-[500px] w-full">
               <LakeMap location={lake.location} ponds={lake.ponds} />
             </div>
@@ -421,21 +422,21 @@ export default function LakeDetail({ params }) {
       <div className="bg-green-50 rounded-lg p-6 shadow-md">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div className="mb-4 md:mb-0">
-            <h3 className="text-xl font-semibold mb-2">Ready to go fishing?</h3>
-            <p className="text-gray-700">Reserve your pond now to secure your spot.</p>
+            <h3 className="text-xl font-semibold mb-2">Gata de pescuit?</h3>
+            <p className="text-gray-700">Rezervă acum heleșteul pentru a-ți asigura locul.</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={() => setSelectedTab("ponds")}
               className="bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 px-6 rounded transition duration-200"
             >
-              View Ponds
+              Vezi heleșteiele
             </button>
             <button
               onClick={() => setShowReservationModal(true)}
               className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded transition duration-200"
             >
-              Make Reservation
+              Fă o rezervare
             </button>
           </div>
         </div>

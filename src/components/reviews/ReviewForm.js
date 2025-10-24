@@ -55,7 +55,7 @@ export default function ReviewForm({ lake, onClose, onSubmit: onSubmitProp }) {
   return (
     <div className="bg-white rounded-lg max-w-2xl w-full p-6">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold text-gray-900">Write a Review for {lake.name}</h3>
+        <h3 className="text-xl font-semibold text-gray-900">Scrie o recenzie pentru {lake.name}</h3>
         <button onClick={onClose} className="text-gray-700 hover:text-gray-900" disabled={submitting}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -66,7 +66,7 @@ export default function ReviewForm({ lake, onClose, onSubmit: onSubmitProp }) {
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Rating Stars */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-800 mb-2">Overall Rating</label>
+          <label className="block text-sm font-medium text-gray-800 mb-2">Rating general</label>
           <div className="flex items-center">
             {[1, 2, 3, 4, 5].map((star) => (
               <button key={star} type="button" onClick={() => setRating(star)} className="text-2xl focus:outline-none">
@@ -74,26 +74,26 @@ export default function ReviewForm({ lake, onClose, onSubmit: onSubmitProp }) {
               </button>
             ))}
             <span className="ml-2 text-sm text-gray-700">
-              {rating === 1 && "Poor"}
-              {rating === 2 && "Fair"}
-              {rating === 3 && "Good"}
-              {rating === 4 && "Very Good"}
-              {rating === 5 && "Excellent"}
+              {rating === 1 && "Slab"}
+              {rating === 2 && "Mediu"}
+              {rating === 3 && "Bun"}
+              {rating === 4 && "Foarte bun"}
+              {rating === 5 && "Excelent"}
             </span>
           </div>
         </div>
 
         {/* Review Comment */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-800 mb-2">Your Review</label>
+          <label className="block text-sm font-medium text-gray-800 mb-2">Recenzia ta</label>
           <textarea
             rows={4}
-            placeholder="Share your experience fishing at this lake..."
+            placeholder="Povestește-ne experiența ta de pescuit la acest lac..."
             {...register("comment", {
-              required: "Please write your review",
+              required: "Te rugăm să scrii recenzia",
               minLength: {
                 value: 10,
-                message: "Your review is too short",
+                message: "Recenzia este prea scurtă",
               },
             })}
             className={`w-full p-3 border rounded-md ${errors.comment ? "border-red-500" : "border-gray-300"}`}
@@ -103,10 +103,10 @@ export default function ReviewForm({ lake, onClose, onSubmit: onSubmitProp }) {
 
         {/* Fish Caught */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-800 mb-2">Fish Species Caught (optional)</label>
+          <label className="block text-sm font-medium text-gray-800 mb-2">Specii de pești prinse (opțional)</label>
           <input
             type="text"
-            placeholder="E.g., Trout, Bass, Catfish"
+            placeholder="Ex.: Păstrăv, Biban, Somn"
             {...register("fishCaught")}
             className="w-full p-3 border border-gray-300 rounded-md"
           />
@@ -114,16 +114,16 @@ export default function ReviewForm({ lake, onClose, onSubmit: onSubmitProp }) {
 
         {/* Weather Conditions */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-800 mb-2">Weather Conditions (optional)</label>
+          <label className="block text-sm font-medium text-gray-800 mb-2">Condiții meteo (opțional)</label>
           <select {...register("weather")} className="w-full p-3 border border-gray-300 rounded-md">
-            <option value="">Select weather conditions</option>
-            <option value="sunny">Sunny</option>
-            <option value="cloudy">Cloudy</option>
-            <option value="rainy">Rainy</option>
-            <option value="windy">Windy</option>
-            <option value="stormy">Stormy</option>
-            <option value="foggy">Foggy</option>
-            <option value="other">Other</option>
+            <option value="">Selectează condițiile meteo</option>
+            <option value="sunny">Însorit</option>
+            <option value="cloudy">Noros</option>
+            <option value="rainy">Ploios</option>
+            <option value="windy">Vânt</option>
+            <option value="stormy">Furtună</option>
+            <option value="foggy">Ceață</option>
+            <option value="other">Altul</option>
           </select>
         </div>
 
@@ -134,10 +134,10 @@ export default function ReviewForm({ lake, onClose, onSubmit: onSubmitProp }) {
             disabled={submitting}
             className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 mr-2"
           >
-            Cancel
+            Renunță
           </button>
           <button type="submit" disabled={submitting} className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md">
-            {submitting ? "Submitting..." : "Submit Review"}
+            {submitting ? "Se trimite..." : "Trimite recenzia"}
           </button>
         </div>
       </form>

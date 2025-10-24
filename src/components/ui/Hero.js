@@ -7,7 +7,7 @@ export default function Hero({
   title,
   subtitle,
   image,
-  ctaText = "Get Started",
+  ctaText = "Începe",
   ctaLink = "/",
   secondaryCtaText,
   secondaryCtaLink,

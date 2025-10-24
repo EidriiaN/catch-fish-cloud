@@ -76,12 +76,12 @@ export default function ReservationForm({ lake, onClose }) {
 
   // Time slots based on requirements
   const timeSlots = [
-    { id: "morning-12h", label: "6:00 AM - 6:00 PM (12 hours)", startHour: 6, duration: 12 },
-    { id: "evening-12h", label: "6:00 PM - 6:00 AM (12 hours)", startHour: 18, duration: 12 },
-    { id: "morning-24h", label: "6:00 AM - 6:00 AM (24 hours)", startHour: 6, duration: 24 },
-    { id: "evening-24h", label: "6:00 PM - 6:00 PM (24 hours)", startHour: 18, duration: 24 },
-    { id: "morning-48h", label: "6:00 AM - 6:00 AM (48 hours)", startHour: 6, duration: 48 },
-    { id: "evening-48h", label: "6:00 PM - 6:00 PM (48 hours)", startHour: 18, duration: 48 },
+    { id: "morning-12h", label: "6:00 AM - 6:00 PM (12 ore)", startHour: 6, duration: 12 },
+    { id: "evening-12h", label: "6:00 PM - 6:00 AM (12 ore)", startHour: 18, duration: 12 },
+    { id: "morning-24h", label: "6:00 AM - 6:00 AM (24 ore)", startHour: 6, duration: 24 },
+    { id: "evening-24h", label: "6:00 PM - 6:00 PM (24 ore)", startHour: 18, duration: 24 },
+    { id: "morning-48h", label: "6:00 AM - 6:00 AM (48 ore)", startHour: 6, duration: 48 },
+    { id: "evening-48h", label: "6:00 PM - 6:00 PM (48 ore)", startHour: 18, duration: 48 },
   ];
 
   // Calculate total price whenever selected ponds or time slot changes
@@ -116,7 +116,7 @@ export default function ReservationForm({ lake, onClose }) {
   const onSubmit = async (data) => {
     if (!isAuthenticated) {
       // Redirect to login if not authenticated
-      router.push("/login?redirect=reservation");
+      router.push("/auth/login?redirect=reservation");
       return;
     }
 
@@ -152,8 +152,8 @@ export default function ReservationForm({ lake, onClose }) {
 
       // Show success message
       toast({
-        title: "Reservation Created",
-        description: "Your fishing trip has been booked successfully!",
+        title: "Rezervare creată",
+        description: "Ieșirea ta la pescuit a fost rezervată cu succes!",
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -164,8 +164,8 @@ export default function ReservationForm({ lake, onClose }) {
       router.push("/dashboard/user/reservations");
     } catch (error) {
       toast({
-        title: "Error",
-        description: "There was an error creating your reservation. Please try again.",
+        title: "Eroare",
+        description: "A apărut o eroare la crearea rezervării. Încearcă din nou.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -176,16 +176,16 @@ export default function ReservationForm({ lake, onClose }) {
   };
 
   const steps = [
-    { title: "Step 1", description: "Select Date & Time" },
-    { title: "Step 2", description: "Choose Pond" },
-    { title: "Step 3", description: "Payment Details" },
+    { title: "Pasul 1", description: "Alege data și intervalul" },
+    { title: "Pasul 2", description: "Alege heleșteul" },
+    { title: "Pasul 3", description: "Detalii plată" },
   ];
 
   return (
     <Modal isOpen={true} onClose={onClose} size="xl">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Book Your Fishing Trip</ModalHeader>
+        <ModalHeader>Rezervă ieșirea la pescuit</ModalHeader>
         <ModalCloseButton />
 
         <ModalBody>
@@ -207,13 +207,13 @@ export default function ReservationForm({ lake, onClose }) {
           {activeStep === 0 && (
             <Box>
               <Heading as="h3" size="md" mb={4}>
-                Select Date & Time
+                Alege data și intervalul orar
               </Heading>
 
               <FormControl mb={6}>
-                <FormLabel>Select Date</FormLabel>
+                <FormLabel>Alege data</FormLabel>
                 <Select
-                  placeholder="Choose a date"
+                  placeholder="Alege o dată"
                   onChange={(e) => {
                     const date = new Date(e.target.value);
                     setSelectedDate(date);
@@ -228,7 +228,7 @@ export default function ReservationForm({ lake, onClose }) {
               </FormControl>
 
               <FormControl>
-                <FormLabel>Select Time Slot</FormLabel>
+                <FormLabel>Alege intervalul orar</FormLabel>
                 <RadioGroup
                   onChange={(value) => {
                     const slot = timeSlots.find((slot) => slot.id === value);
@@ -250,10 +250,10 @@ export default function ReservationForm({ lake, onClose }) {
           {activeStep === 1 && (
             <Box>
               <Heading as="h3" size="md" mb={4}>
-                Select Ponds
+                Selectează heleșteiele
               </Heading>
 
-              <Text mb={4}>Select one or more ponds at {lake.name}:</Text>
+              <Text mb={4}>Selectează unul sau mai multe heleșteie la {lake.name}:</Text>
 
               <Stack spacing={3}>
                 {lake.ponds.map((pond) => (
@@ -266,7 +266,7 @@ export default function ReservationForm({ lake, onClose }) {
                     <HStack>
                       <Text fontWeight="medium">{pond.name}</Text>
                       <Text color="gray.600">
-                        ({pond.size} acres, {pond.fishTypes.join(", ")})
+                        ({pond.size} acri, {pond.fishTypes.join(", ")})
                       </Text>
                     </HStack>
                   </Checkbox>
@@ -276,11 +276,11 @@ export default function ReservationForm({ lake, onClose }) {
               {selectedPonds.length > 0 && (
                 <Box mt={6} p={4} bg="green.50" rounded="md">
                   <Flex justify="space-between">
-                    <Text>Total Price:</Text>
+                    <Text>Preț total:</Text>
                     <Text fontWeight="bold">{formatCurrency(totalPrice)}</Text>
                   </Flex>
                   <Text fontSize="sm" mt={2}>
-                    For {selectedPonds.length} pond(s), {selectedTimeSlot?.duration} hours
+                    Pentru {selectedPonds.length} heleșteu(ri), {selectedTimeSlot?.duration} ore
                   </Text>
                 </Box>
               )}
@@ -290,24 +290,24 @@ export default function ReservationForm({ lake, onClose }) {
           {activeStep === 2 && (
             <Box as="form" id="reservation-form" onSubmit={handleSubmit(onSubmit)}>
               <Heading as="h3" size="md" mb={4}>
-                Payment Details
+                Detalii plată
               </Heading>
 
               <VStack spacing={4} align="stretch">
                 <FormControl isInvalid={errors.cardholderName}>
-                  <FormLabel>Cardholder Name</FormLabel>
-                  <Input {...register("cardholderName", { required: "Name is required" })} focusBorderColor="brand.500" />
+                  <FormLabel>Nume deținător card</FormLabel>
+                  <Input {...register("cardholderName", { required: "Numele este obligatoriu" })} focusBorderColor="brand.500" />
                   <FormErrorMessage>{errors.cardholderName && errors.cardholderName.message}</FormErrorMessage>
                 </FormControl>
 
                 <FormControl isInvalid={errors.cardNumber}>
-                  <FormLabel>Card Number</FormLabel>
+                  <FormLabel>Număr card</FormLabel>
                   <Input
                     {...register("cardNumber", {
-                      required: "Card number is required",
+                      required: "Numărul cardului este obligatoriu",
                       pattern: {
                         value: /^[0-9]{16}$/,
-                        message: "Please enter a valid 16-digit card number",
+                        message: "Te rugăm să introduci un număr de card valid din 16 cifre",
                       },
                     })}
                     focusBorderColor="brand.500"
@@ -317,14 +317,14 @@ export default function ReservationForm({ lake, onClose }) {
 
                 <HStack>
                   <FormControl isInvalid={errors.expiryDate}>
-                    <FormLabel>Expiry Date</FormLabel>
+                    <FormLabel>Data expirării</FormLabel>
                     <Input
                       placeholder="MM/YY"
                       {...register("expiryDate", {
-                        required: "Expiry date is required",
+                        required: "Data expirării este obligatorie",
                         pattern: {
                           value: /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
-                          message: "Please enter a valid date in MM/YY format",
+                          message: "Te rugăm să introduci o dată validă în format MM/YY",
                         },
                       })}
                       focusBorderColor="brand.500"
@@ -336,10 +336,10 @@ export default function ReservationForm({ lake, onClose }) {
                     <FormLabel>CVV</FormLabel>
                     <Input
                       {...register("cvv", {
-                        required: "CVV is required",
+                        required: "CVV este obligatoriu",
                         pattern: {
                           value: /^[0-9]{3,4}$/,
-                          message: "Please enter a valid CVV",
+                          message: "Te rugăm să introduci un CVV valid",
                         },
                       })}
                       focusBorderColor="brand.500"
@@ -350,21 +350,21 @@ export default function ReservationForm({ lake, onClose }) {
 
                 <Box mt={6} p={4} bg="green.50" rounded="md">
                   <Heading as="h4" size="sm" mb={2}>
-                    Reservation Summary
+                    Rezumat rezervare
                   </Heading>
                   <Divider mb={3} />
                   <VStack align="stretch" spacing={2}>
                     <Flex justify="space-between">
-                      <Text>Date:</Text>
-                      <Text>{selectedDate ? formatDate(selectedDate) : "Not selected"}</Text>
+                      <Text>Data:</Text>
+                      <Text>{selectedDate ? formatDate(selectedDate) : "Neselectat"}</Text>
                     </Flex>
                     <Flex justify="space-between">
-                      <Text>Time:</Text>
-                      <Text>{selectedTimeSlot ? selectedTimeSlot.label : "Not selected"}</Text>
+                      <Text>Interval orar:</Text>
+                      <Text>{selectedTimeSlot ? selectedTimeSlot.label : "Neselectat"}</Text>
                     </Flex>
                     <Flex justify="space-between">
-                      <Text>Ponds:</Text>
-                      <Text>{selectedPonds.length} selected</Text>
+                      <Text>Heleșteie:</Text>
+                      <Text>{selectedPonds.length} selectat(e)</Text>
                     </Flex>
                     <Divider my={2} />
                     <Flex justify="space-between" fontWeight="bold">
@@ -380,12 +380,12 @@ export default function ReservationForm({ lake, onClose }) {
 
         <ModalFooter>
           <Button variant="ghost" mr={3} onClick={onClose}>
-            Cancel
+            Renunță
           </Button>
 
           {activeStep > 0 && (
             <Button variant="outline" mr={3} onClick={() => setActiveStep(activeStep - 1)}>
-              Previous
+              Înapoi
             </Button>
           )}
 
@@ -395,11 +395,11 @@ export default function ReservationForm({ lake, onClose }) {
               onClick={() => setActiveStep(activeStep + 1)}
               isDisabled={(activeStep === 0 && (!selectedDate || !selectedTimeSlot)) || (activeStep === 1 && selectedPonds.length === 0)}
             >
-              Next
+              Înainte
             </Button>
           ) : (
-            <Button colorScheme="green" type="submit" form="reservation-form" isLoading={loading} loadingText="Booking...">
-              Complete Booking
+            <Button colorScheme="green" type="submit" form="reservation-form" isLoading={loading} loadingText="Se rezervă...">
+              Finalizează rezervarea
             </Button>
           )}
         </ModalFooter>

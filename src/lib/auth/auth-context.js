@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
           localStorage.setItem("fishingApp_user", JSON.stringify(user));
           resolve(user);
         } else {
-          reject(new Error("Invalid email or password"));
+          reject(new Error("Email sau parolă incorecte"));
         }
       }, 500);
     });
@@ -56,7 +56,7 @@ export function AuthProvider({ children }) {
         const existingUser = mockUsers.find((user) => user.email === email);
 
         if (existingUser) {
-          reject(new Error("User already exists with this email"));
+          reject(new Error("Există deja un utilizator cu acest email"));
           return;
         }
 

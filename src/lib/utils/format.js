@@ -7,7 +7,7 @@
  */
 export function formatDate(dateString) {
   const options = { year: "numeric", month: "long", day: "numeric" };
-  return new Date(dateString).toLocaleDateString(undefined, options);
+  return new Date(dateString).toLocaleDateString("ro-RO", options);
 }
 
 /**
@@ -17,7 +17,7 @@ export function formatDate(dateString) {
  * @returns {string} Formatted currency
  */
 export function formatCurrency(amount, currency = "USD") {
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("ro-RO", {
     style: "currency",
     currency,
   }).format(amount);

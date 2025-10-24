@@ -135,7 +135,7 @@ export default function UserReservations() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-center items-center h-64">
-          <p className="text-gray-700">Loading your reservations...</p>
+          <p className="text-gray-700">Se încarcă rezervările tale...</p>
         </div>
       </div>
     );
@@ -143,7 +143,7 @@ export default function UserReservations() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">My Reservations</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-6">Rezervările mele</h1>
 
       {/* Filters */}
       <div className="mb-6">
@@ -152,7 +152,7 @@ export default function UserReservations() {
             onClick={() => filterReservations("all")}
             className={`px-4 py-2 rounded-md ${activeFilter === "all" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300"}`}
           >
-            All
+            Toate
           </button>
           <button
             onClick={() => filterReservations("upcoming")}
@@ -160,7 +160,7 @@ export default function UserReservations() {
               activeFilter === "upcoming" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300"
             }`}
           >
-            Upcoming
+            Următoare
           </button>
           <button
             onClick={() => filterReservations("completed")}
@@ -168,7 +168,7 @@ export default function UserReservations() {
               activeFilter === "completed" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300"
             }`}
           >
-            Completed
+            Finalizate
           </button>
           <button
             onClick={() => filterReservations("cancelled")}
@@ -176,7 +176,7 @@ export default function UserReservations() {
               activeFilter === "cancelled" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300"
             }`}
           >
-            Cancelled
+            Anulate
           </button>
         </div>
       </div>
@@ -184,9 +184,9 @@ export default function UserReservations() {
       {/* Reservations List */}
       {filteredReservations.length === 0 ? (
         <div className="bg-white rounded-lg shadow-md p-6 text-center">
-          <p className="text-gray-700 mb-4">No reservations found.</p>
+          <p className="text-gray-700 mb-4">Nu s-au găsit rezervări.</p>
           <Link href="/lakes" className="text-green-600 hover:text-green-700 font-medium">
-            Browse Lakes
+            Vezi bălțile
           </Link>
         </div>
       ) : (
@@ -218,28 +218,28 @@ export default function UserReservations() {
                             : "bg-red-100 text-red-800"
                         }`}
                       >
-                        {reservation.status === "upcoming" ? "Upcoming" : reservation.status === "completed" ? "Completed" : "Cancelled"}
+                        {reservation.status === "upcoming" ? "Următoare" : reservation.status === "completed" ? "Finalizată" : "Anulată"}
                       </span>
                     </div>
                   </div>
 
                   <div className="border-t border-b border-gray-200 py-4 my-4">
                     <div className="mb-2">
-                      <span className="font-medium">Reserved Ponds:</span> {reservation.ponds.map((pond) => pond.name).join(", ")}
+                      <span className="font-medium">Heleșteie rezervate:</span> {reservation.ponds.map((pond) => pond.name).join(", ")}
                     </div>
                     <div className="flex justify-between items-center">
                       <div>
-                        <span className="font-medium">Total Price:</span> {formatCurrency(reservation.totalPrice)}
+                        <span className="font-medium">Preț total:</span> {formatCurrency(reservation.totalPrice)}
                       </div>
                       <div>
-                        <span className="font-medium">Reserved On:</span> {formatDate(reservation.createdAt)}
+                        <span className="font-medium">Rezervat la:</span> {formatDate(reservation.createdAt)}
                       </div>
                     </div>
                   </div>
 
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
                     <Link href={`/lakes/${reservation.lakeId}`} className="text-green-600 hover:text-green-700 font-medium mb-4 sm:mb-0">
-                      View Lake Details
+                      Vezi detalii lac
                     </Link>
 
                     <div className="flex space-x-4">
@@ -249,7 +249,7 @@ export default function UserReservations() {
                           onClick={() => handleReviewClick(reservation)}
                           className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded"
                         >
-                          Write a Review
+                          Scrie o recenzie
                         </button>
                       )}
 
@@ -272,7 +272,7 @@ export default function UserReservations() {
                           }}
                           className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded"
                         >
-                          Cancel Reservation
+                          Anulează rezervarea
                         </button>
                       )}
                     </div>

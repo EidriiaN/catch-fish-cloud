@@ -58,7 +58,7 @@ export default function LakeMap({ location, ponds, isEditable = false, onPondUpd
           weight: 2,
         })
           .addTo(map)
-          .bindPopup(`<b>${pond.name}</b><br>Fish: ${pond.fishTypes.join(", ")}`);
+          .bindPopup(`<b>${pond.name}</b><br>Pești: ${pond.fishTypes.join(", ")}`);
 
         // If editable, add edit functionality
         if (isEditable && onPondUpdate) {

@@ -56,7 +56,7 @@ export default function UserDashboard() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <p className="text-gray-700">Loading your dashboard...</p>
+          <p className="text-gray-700">Se încarcă panoul tău...</p>
         </div>
       </div>
     );
@@ -64,16 +64,16 @@ export default function UserDashboard() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">Welcome, {currentUser?.name}</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-6">Bun venit, {currentUser?.name}</h1>
 
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Your Upcoming Reservations</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Rezervările tale viitoare</h2>
 
         {reservations.length === 0 ? (
           <div className="text-gray-700">
-            <p>You don&apos;t have any reservations yet.</p>
+            <p>Încă nu ai nicio rezervare.</p>
             <Link href="/lakes" className="text-green-600 hover:underline mt-2 inline-block">
-              Find a lake to book
+              Caută un lac pentru rezervare
             </Link>
           </div>
         ) : (
@@ -81,12 +81,12 @@ export default function UserDashboard() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Lake</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Pond</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Price</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Lac</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Heleșteu</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Data</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Stare</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Preț</th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">Acțiuni</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -110,9 +110,9 @@ export default function UserDashboard() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">{formatCurrency(reservation.price)}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button className="text-red-600 hover:text-red-900 mr-4">Cancel</button>
+                      <button className="text-red-600 hover:text-red-900 mr-4">Anulează</button>
                       <Link href={`/lakes/${reservation.lakeId}`} className="text-green-600 hover:text-green-900">
-                        View Lake
+                        Vezi lacul
                       </Link>
                     </td>
                   </tr>
@@ -123,7 +123,7 @@ export default function UserDashboard() {
             {reservations.length > 3 && (
               <div className="mt-4 text-right">
                 <Link href="/dashboard/user/reservations" className="text-green-600 hover:text-green-700">
-                  View all {reservations.length} reservations →
+                  Vezi toate cele {reservations.length} rezervări →
                 </Link>
               </div>
             )}
@@ -133,24 +133,24 @@ export default function UserDashboard() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4">Manage Reservations</h2>
-          <p className="text-gray-700 mb-4">View, modify or cancel your current reservations.</p>
+          <h2 className="text-xl font-semibold mb-4">Gestionează rezervările</h2>
+          <p className="text-gray-700 mb-4">Vezi, modifică sau anulează rezervările curente.</p>
           <Link
             href="/dashboard/user/reservations"
             className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200 inline-block"
           >
-            View All Reservations
+            Vezi toate rezervările
           </Link>
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4">Write a Review</h2>
-          <p className="text-gray-700 mb-4">Have you visited a lake recently? Share your experience with other fishermen!</p>
+          <h2 className="text-xl font-semibold mb-4">Scrie o recenzie</h2>
+          <p className="text-gray-700 mb-4">Ai fost recent la un lac? Împărtășește-ți experiența cu alți pescari!</p>
           <Link
             href="/dashboard/user/reservations"
             className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200 inline-block"
           >
-            Write a Review
+            Scrie o recenzie
           </Link>
         </div>
       </div>

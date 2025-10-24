@@ -55,7 +55,7 @@ export default function Login() {
       <Box bg={useColorModeValue("white", "gray.700")} p={8} rounded="lg" boxShadow="md">
         <Stack spacing={6}>
           <Heading as="h1" size="lg" textAlign="center">
-            Log In to Your Account
+            Autentifică-te în contul tău
           </Heading>
 
           {error && (
@@ -68,37 +68,37 @@ export default function Login() {
           <form onSubmit={handleSubmit}>
             <VStack spacing={4}>
               <FormControl id="email" isRequired>
-                <FormLabel>Email Address</FormLabel>
+                <FormLabel>Adresă de email</FormLabel>
                 <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} focusBorderColor="brand.500" />
               </FormControl>
 
               <FormControl id="password" isRequired>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Parolă</FormLabel>
                 <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} focusBorderColor="brand.500" />
               </FormControl>
 
-              <Button type="submit" colorScheme="green" size="md" width="full" isLoading={isLoading} loadingText="Signing In...">
-                Sign In
+              <Button type="submit" colorScheme="green" size="md" width="full" isLoading={isLoading} loadingText="Se autentifică...">
+                Autentificare
               </Button>
             </VStack>
           </form>
 
           <Box textAlign="center">
             <Text color="gray.600">
-              Don&apos;t have an account?{" "}
+              Nu ai un cont?{" "}
               <ChakraLink as={Link} href="/auth/register" color="brand.500">
-                Register here
+                Înscrie-te aici
               </ChakraLink>
             </Text>
 
             <Text mt={2} fontSize="sm" color="gray.600">
-              For demo purposes, you can use:
+              Pentru demo poți folosi:
               <br />
-              User: john@example.com
+              Utilizator: john@example.com
               <br />
               Admin: admin1@example.com
               <br />
-              (any password will work)
+              (orice parolă va funcționa)
             </Text>
           </Box>
         </Stack>

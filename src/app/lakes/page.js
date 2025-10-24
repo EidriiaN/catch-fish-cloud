@@ -58,7 +58,7 @@ export default function Lakes() {
   return (
     <Container maxW="container.xl" py={8} px={{ base: 4, md: 6 }}>
       <Heading as="h1" size="xl" textAlign="center" mb={8} color={useColorModeValue("gray.800", "white")}>
-        Find Your Perfect Fishing Spot
+        Găsește locul perfect pentru pescuit
       </Heading>
 
       {/* Search and Filters */}
@@ -76,7 +76,7 @@ export default function Lakes() {
       ) : filteredLakes.length === 0 ? (
         <Box textAlign="center" py={8}>
           <Text fontSize="lg" color={textColor}>
-            No lakes match your search criteria. Try adjusting your filters.
+            Nicio baltă nu corespunde criteriilor tale. Încearcă să ajustezi filtrele.
           </Text>
         </Box>
       ) : (

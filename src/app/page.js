@@ -11,11 +11,11 @@ export default function Home() {
     <Box fontFamily="body">
       {/* Hero Section */}
       <Hero
-        title="Discover Private Fishing Paradises"
-        subtitle="Find, reserve, and enjoy exclusive access to premium fishing lakes and ponds."
-        ctaText="Find Lakes"
+        title="Descoperă paradisuri private pentru pescuit"
+        subtitle="Caută, rezervă și bucură-te de acces exclusiv la bălți și lacuri premium."
+        ctaText="Caută bălți"
         ctaLink="/lakes"
-        secondaryCtaText="Sign Up"
+        secondaryCtaText="Creează cont"
         secondaryCtaLink="/auth/register"
       />
 
@@ -23,7 +23,7 @@ export default function Home() {
       <Box py={16} bg="white">
         <Container maxW="container.xl">
           <Heading as="h2" size="xl" textAlign="center" mb={12} color="gray.900">
-            Why Choose FishingLakes?
+            De ce să alegi Pește Prins?
           </Heading>
 
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
@@ -32,9 +32,9 @@ export default function Home() {
                 <Icon as={FaMapMarkerAlt} boxSize={8} />
               </Circle>
               <Heading as="h3" size="md" color="gray.900">
-                Exclusive Locations
+                Locații exclusive
               </Heading>
-              <Text color="gray.700">Access private lakes and ponds not available to the general public.</Text>
+              <Text color="gray.700">Acces la lacuri și bălți private, indisponibile publicului larg.</Text>
             </VStack>
 
             <VStack bg="green.50" p={6} rounded="lg" textAlign="center" spacing={4}>
@@ -42,9 +42,9 @@ export default function Home() {
                 <Icon as={FaUserPlus} boxSize={8} />
               </Circle>
               <Heading as="h3" size="md" color="gray.900">
-                Premium Experience
+                Experiență premium
               </Heading>
-              <Text color="gray.700">Enjoy well-stocked waters, better catch rates, and less crowded fishing spots.</Text>
+              <Text color="gray.700">Bucură-te de ape bine populate, șanse mai mari la capturi și locuri mai puțin aglomerate.</Text>
             </VStack>
 
             <VStack bg="green.50" p={6} rounded="lg" textAlign="center" spacing={4}>
@@ -52,9 +52,9 @@ export default function Home() {
                 <Icon as={FaClock} boxSize={8} />
               </Circle>
               <Heading as="h3" size="md" color="gray.900">
-                Easy Reservations
+                Rezervări ușoare
               </Heading>
-              <Text color="gray.700">Book your fishing time in advance to ensure availability.</Text>
+              <Text color="gray.700">Programează din timp sesiunea de pescuit pentru a-ți asigura locul.</Text>
             </VStack>
           </SimpleGrid>
         </Container>
@@ -64,7 +64,7 @@ export default function Home() {
       <Box py={16} bg="gray.50">
         <Container maxW="container.xl">
           <Heading as="h2" size="xl" textAlign="center" mb={12} color="gray.900">
-            How It Works
+            Cum funcționează
           </Heading>
 
           <SimpleGrid columns={{ base: 1, md: 4 }} spacing={8}>
@@ -73,9 +73,9 @@ export default function Home() {
                 1
               </Circle>
               <Heading as="h3" size="md" color="gray.900">
-                Create Account
+                Creează-ți cont
               </Heading>
-              <Text color="gray.700">Sign up and create your profile in minutes.</Text>
+              <Text color="gray.700">Înscrie-te și creează-ți profilul în câteva minute.</Text>
             </VStack>
 
             <VStack textAlign="center" spacing={4}>
@@ -83,9 +83,9 @@ export default function Home() {
                 2
               </Circle>
               <Heading as="h3" size="md" color="gray.900">
-                Discover Lakes
+                Descoperă bălți și lacuri
               </Heading>
-              <Text color="gray.700">Browse through our selection of premium fishing spots.</Text>
+              <Text color="gray.700">Răsfoiește selecția noastră de locuri premium pentru pescuit.</Text>
             </VStack>
 
             <VStack textAlign="center" spacing={4}>
@@ -93,9 +93,9 @@ export default function Home() {
                 3
               </Circle>
               <Heading as="h3" size="md" color="gray.900">
-                Make Reservation
+                Fă o rezervare
               </Heading>
-              <Text color="gray.700">Book your preferred date and pond.</Text>
+              <Text color="gray.700">Alege data dorită și heleșteul preferat.</Text>
             </VStack>
 
             <VStack textAlign="center" spacing={4}>
@@ -103,9 +103,9 @@ export default function Home() {
                 4
               </Circle>
               <Heading as="h3" size="md" color="gray.900">
-                Go Fishing!
+                Hai la pescuit!
               </Heading>
-              <Text color="gray.700">Enjoy your exclusive fishing experience.</Text>
+              <Text color="gray.700">Bucură-te de o experiență de pescuit exclusivă.</Text>
             </VStack>
           </SimpleGrid>
         </Container>
@@ -115,13 +115,13 @@ export default function Home() {
       <Box py={16} bg="green.700" color="white">
         <Container maxW="container.xl" textAlign="center">
           <Heading as="h2" size="xl" mb={6}>
-            Ready to Find Your Perfect Fishing Spot?
+            Gata să-ți găsești locul perfect de pescuit?
           </Heading>
           <Text fontSize="xl" mb={8} maxW="2xl" mx="auto">
-            Join thousands of anglers who&apos;ve discovered premium fishing through our platform.
+            Alătură-te miilor de pescari care au descoperit pescuitul premium prin platforma noastră.
           </Text>
           <Button as={Link} href="/lakes" bg="white" color="green.700" _hover={{ bg: "gray.100" }} size="lg" fontWeight="medium">
-            Browse Lakes Now
+            Vezi bălțile disponibile
           </Button>
         </Container>
       </Box>
