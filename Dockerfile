@@ -11,6 +11,11 @@ COPY package.json package-lock.json* ./
 # Use npm install instead of npm ci to update lock file with the versions in package.json
 RUN npm install --legacy-peer-deps
 
+# --- FIX APPLIED HERE ---
+# Auto-apply patches for Next.js vulnerabilities (CVE-2025-66478)
+# We run this in the base stage so the patched node_modules are cached
+RUN npx fix-react2shell-next --fix
+
 # Build stage
 FROM base AS build
 
@@ -40,7 +45,8 @@ COPY --from=build /app/.next/static ./.next/static
 # COPY --from=build /app/server.js ./server.js
 
 # Expose the port Next.js listens on (default is 3000)
-ENV PORT 8080 # Cloud Run requires listening on PORT 8080
+ENV PORT=8080 
+# Cloud Run requires listening on PORT 8080
 EXPOSE 8080
 
 # Start the Next.js application
